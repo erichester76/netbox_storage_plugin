@@ -1,0 +1,24 @@
+{% extends 'generic/object_edit.html' %}
+
+{% block form %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div id="details-form"></div>
+        <button type="submit">Save</button>
+    </form>
+
+    <script>
+        function updateFields() {
+            var type = document.getElementById('id_type').value;
+            var details = document.getElementById('id_details').value;
+            fetch(`/plugins/storage/get-details-form/?type=${type}&details=${details}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('details-form').innerHTML = data.form_html;
+                });
+        }
+        document.getElementById('id_type').addEventListener('change', updateFields);
+        updateFields();  // Initial load for existing volumes
+    </script>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'generic/object_detail.html' %}
+
+{% block content %}
+    <h1>{{ object.name }}</h1>
+    <p><strong>Type:</strong> {{ object.type }}</p>
+    <p><strong>Size:</strong> {{ object.size }}</p>
+    <p><strong>Description:</strong> {{ object.description }}</p>
+    <p><strong>Details:</strong></p>
+    <ul>
+        {% for key, value in object.details.items %}
+            <li>{{ key }}: {{ value }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
