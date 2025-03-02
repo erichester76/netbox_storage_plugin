@@ -25,7 +25,6 @@ class VolumeForm(forms.ModelForm):
             'name': 'Name',
             'type': 'Type',
             'parent': 'Parent',
-            'associated_object': 'Associated Object',
             'size': 'Size',
             'details': 'Details',
             'description': 'Description',

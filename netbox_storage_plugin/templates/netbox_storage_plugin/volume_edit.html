@@ -20,16 +20,18 @@
     {% for volume_type, fields in DETAILS_FIELDS.items %}
     <div class="type-specific" data-type="{{ volume_type }}" style="display: none;">
         {% for field_def in fields %}
-            <div class="form-group">
-                {{ form[field_def.form_field].label_tag }}
-                {{ form[field_def.form_field] }}
-                {% if form[field_def.form_field].help_text %}
-                    <small class="form-text text-muted">{{ form[field_def.form_field].help_text }}</small>
-                {% endif %}
-            </div>
+            {% with field_name=field_def.form_field %}
+                <div class="form-group">
+                    {{ form[field_name].label_tag }}
+                    {{ form[field_name] }}
+                    {% if form[field_name].help_text %}
+                        <small class="form-text text-muted">{{ form[field_name].help_text }}</small>
+                    {% endif %}
+                </div>
+            {% endwith %}
         {% endfor %}
     </div>
-    {% endfor %}
+{% endfor %}
 
     <!-- Hidden Details Field -->
     {{ form.details }}
