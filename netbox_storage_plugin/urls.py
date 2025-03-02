@@ -13,5 +13,4 @@ urlpatterns = [
     path('volumes/bulk-edit/', views.VolumeBulkEditView.as_view(), name='volume_bulk_edit'),
     path('volumes/bulk-delete/',views.VolumeBulkDeleteView.as_view(), name='volume_bulk_delete'),
     path('volumes/<int:pk>/changelog/', views.VolumeChangeLogView.as_view(), name='volume_changelog'),
-    path('volumes/get-details-form/', views.GetDetailsFormView.as_view(), name='get_details_form'),
 ]
