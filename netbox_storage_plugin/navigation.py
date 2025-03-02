@@ -118,7 +118,7 @@ items = (
     ),
     PluginMenuItem(
         link='plugins:netbox_storage_plugin:objectstorage_list',
-        link_text='Object Storages',
+        link_text='Object Storage',
         permissions=['netbox_storage_plugin.view_objectstorage'],
         buttons=(
             PluginMenuButton(
