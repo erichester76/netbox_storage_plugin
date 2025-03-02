@@ -10,9 +10,5 @@ class StoragePluginConfig(PluginConfig):
     base_url = 'storage'
     min_version = '4.1.0'
     max_version = '4.2.99'
-    required_settings = []
-    default_settings = {}
-    middleware = []
-    queues = []
 
 config = StoragePluginConfig
