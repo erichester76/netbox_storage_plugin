@@ -2,9 +2,6 @@
 name = "netbox-storage-plugin"
 version = "0.1.0"
 description = "A NetBox plugin for managing storage volumes"
-dependencies = [
-    "netbox>=4.1.0",
-]
 
 [tool.setuptools]
 packages = ["netbox_storage_plugin"]

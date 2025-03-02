@@ -63,7 +63,7 @@ RELATIONSHIP_RULES = {
     },
     'virtual_disk': {
         'allowed_parents': ['filesystem'],
-        'allowed_associations': ['virtualization.VirtualMachine'],
+        'allowed_associations': ['virtualization.VirtualDisk'],
         'max_depth': 5,
         'multiple_parents': False,
         'multiple_associations': False,
