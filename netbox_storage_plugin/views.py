@@ -35,6 +35,11 @@ class VolumeEditView(generic.ObjectEditView):
             volume.save()
             return self.form_valid(form)
         return self.form_invalid(form)
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['DETAILS_FIELDS'] = DETAILS_FIELDS  # Add DETAILS_FIELDS to context
+        return context
 
 class VolumeDeleteView(generic.ObjectDeleteView):
     queryset = Volume.objects.all()

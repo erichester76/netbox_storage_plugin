@@ -19,17 +19,17 @@ class VolumeForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Hide the details JSON field from the user
-        self.fields['details'].widget = forms.HiddenInput()
-
-        # If editing an existing volume, populate type-specific fields from details
-        if self.instance and self.instance.pk:
-            details = self.instance.details or {}
-            volume_type = self.instance.type
-            for field_def in DETAILS_FIELDS.get(volume_type, []):
+        # Example: Dynamically add fields based on DETAILS_FIELDS
+        for volume_type, fields in DETAILS_FIELDS.items():
+            for field_def in fields:
                 field_name = field_def['form_field']
-                if field_name in self.fields:
-                    self.fields[field_name].initial = details.get(field_def['json_key'])
+                # Add field if not already present; adjust field type as needed
+                if field_name not in self.fields:
+                    self.fields[field_name] = forms.CharField(
+                        label=field_def.get('label', field_name),
+                        required=False,
+                        help_text=field_def.get('help_text', '')
+                    )
 
     def clean(self):
         cleaned_data = super().clean()
