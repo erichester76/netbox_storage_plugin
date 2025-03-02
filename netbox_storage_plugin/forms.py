@@ -5,10 +5,20 @@ from django.core.exceptions import ValidationError
 from .details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
 
 class VolumeForm(NetBoxModelForm):
+    content_type = forms.ModelChoiceField(
+        queryset=ContentType.objects.filter(model__in=['device', 'virtualmachine']),
+        label='Associated Object Type',
+        required=False
+    )
+    object_id = forms.IntegerField(
+        label='Associated Object ID',
+        required=False
+    )
+    
     class Meta:
         model = Volume
-        fields = ['type', 'parent', 'associated_object', 'name']  # Example fields
-
+        fields = ['name', 'type', 'parent', 'content_type', 'object_id', 'size', 'details', 'description']
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Optional: Dynamically filter parent choices based on type (if type is set)

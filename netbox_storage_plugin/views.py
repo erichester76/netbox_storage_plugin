@@ -21,6 +21,21 @@ class VolumeEditView(generic.ObjectEditView):
     form = VolumeForm
     template_name = 'netbox_storage_plugin/volume_edit.html'
 
+    def post(self, request, *args, **kwargs):
+        form = self.form(request.POST, instance=self.get_object())
+        if form.is_valid():
+            volume = form.save(commit=False)
+            content_type = form.cleaned_data['content_type']
+            object_id = form.cleaned_data['object_id']
+            if content_type and object_id:
+                # Set the associated_object using content_type and object_id
+                volume.associated_object = content_type.get_object_for_this_type(id=object_id)
+            else:
+                volume.associated_object = None
+            volume.save()
+            return self.form_valid(form)
+        return self.form_invalid(form)
+
 class VolumeDeleteView(generic.ObjectDeleteView):
     queryset = Volume.objects.all()
 
