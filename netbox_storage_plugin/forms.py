@@ -2,7 +2,7 @@ from django import forms
 from netbox.forms import NetBoxModelForm
 from .models import Volume
 from django.core.exceptions import ValidationError
-from details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
+from .details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
 
 class VolumeForm(NetBoxModelForm):
     class Meta:
@@ -14,8 +14,8 @@ class VolumeForm(NetBoxModelForm):
         # Optional: Dynamically filter parent choices based on type (if type is set)
         if 'type' in self.data or self.instance.type:
             volume_type = self.data.get('type', self.instance.type)
-            if volume_type in RELATIONSHIP_RULES_V2:
-                allowed_parents = RELATIONSHIP_RULES_V2[volume_type]['allowed_parents']
+            if volume_type in RELATIONSHIP_RULES:
+                allowed_parents = RELATIONSHIP_RULES[volume_type]['allowed_parents']
                 self.fields['parent'].queryset = Volume.objects.filter(type__in=allowed_parents)
 
     def clean(self):
@@ -24,10 +24,10 @@ class VolumeForm(NetBoxModelForm):
         parent = cleaned_data.get('parent')
         associated_object = cleaned_data.get('associated_object')
 
-        if volume_type not in RELATIONSHIP_RULES_V2:
+        if volume_type not in RELATIONSHIP_RULES:
             return cleaned_data  # No rules defined, skip validation
 
-        rules = RELATIONSHIP_RULES_V2[volume_type]
+        rules = RELATIONSHIP_RULES[volume_type]
 
         # Validate parent
         if parent:
