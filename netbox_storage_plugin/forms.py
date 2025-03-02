@@ -32,7 +32,7 @@ class DiskForm(NetBoxModelForm):
     
     class Meta:
         model = models.Disk
-        fields = ['name', 'description', 'size', 'interface', 'speed']
+        fields = ['name', 'description', 'size', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'interface', 'speed']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

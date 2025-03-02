@@ -12,7 +12,7 @@ class DiskTable(NetBoxTable):
 
     class Meta(NetBoxTable.Meta):
         model = Disk
-        fields = ('pk', 'name', 'size', 'interface', 'speed', 'description')
+        fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed')
         default_columns = ('name', 'size', 'interface', 'speed')
 
 class DiskSetTable(NetBoxTable):
