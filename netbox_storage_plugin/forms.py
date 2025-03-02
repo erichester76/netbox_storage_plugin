@@ -49,11 +49,9 @@ class DiskForm(NetBoxModelForm):
         )
         self.fields['associated_object_type'].queryset = ContentType.objects.filter(
             Q(app_label='dcim', model='device') |
-            Q(app_label='virtualization', model='cluster')
-            Q(app_label='virtualization', model='virtualmachine')
+            Q(app_label='virtualization', model='cluster') |
+            Q(app_label='virtualization', model='virtualmachine') |
             Q(app_label='virtualization', model='virtualdisk')
-
-
         )
 
 
