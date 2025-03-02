@@ -1,5 +1,6 @@
 from django import forms
 from netbox.forms import NetBoxModelForm
+from django.contrib.contenttypes.models import ContentType
 from .models import Volume
 from django.core.exceptions import ValidationError
 from .details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
