@@ -5,79 +5,52 @@ from .models import Volume
 from django.core.exceptions import ValidationError
 from .details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
 
-class VolumeForm(NetBoxModelForm):
-    content_type = forms.ModelChoiceField(
-        queryset=ContentType.objects.filter(model__in=['device', 'virtualmachine']),
-        label='Associated Object Type',
-        required=False
-    )
-    object_id = forms.IntegerField(
-        label='Associated Object ID',
-        required=False
-    )
-    
+class VolumeForm(forms.ModelForm):
+    # Define type-specific fields dynamically from DETAILS_FIELDS
+    for volume_type, fields in DETAILS_FIELDS.items():
+        for field_def in fields:
+            field_name = field_def['form_field']
+            widget = field_def['widget']
+            label = field_def['label']
+            help_text = field_def['help_text']
+            kwargs = {'label': label, 'help_text': help_text, 'required': False}
+            if 'choices' in field_def:
+                kwargs['choices'] = field_def['choices']
+            locals()[field_name] = widget(**kwargs)
+
     class Meta:
         model = Volume
-        fields = ['name', 'type', 'parent', 'content_type', 'object_id', 'size', 'details', 'description']
-        
+        fields = ['name', 'type', 'parent', 'associated_object', 'size', 'details', 'description']
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Optional: Dynamically filter parent choices based on type (if type is set)
-        if 'type' in self.data or self.instance.type:
-            volume_type = self.data.get('type', self.instance.type)
-            if volume_type in RELATIONSHIP_RULES:
-                allowed_parents = RELATIONSHIP_RULES[volume_type]['allowed_parents']
-                self.fields['parent'].queryset = Volume.objects.filter(type__in=allowed_parents)
+        # Hide the details JSON field from the user
+        self.fields['details'].widget = forms.HiddenInput()
+        # If editing an existing volume, populate type-specific fields from details
+        if self.instance and self.instance.pk:
+            details = self.instance.details or {}
+            volume_type = self.instance.type
+            for field_def in DETAILS_FIELDS.get(volume_type, []):
+                field_name = field_def['form_field']
+                if field_name in self.fields:
+                    self.fields[field_name].initial = details.get(field_name)
 
     def clean(self):
         cleaned_data = super().clean()
         volume_type = cleaned_data.get('type')
-        parent = cleaned_data.get('parent')
-        associated_object = cleaned_data.get('associated_object')
-
-        if volume_type not in RELATIONSHIP_RULES:
-            return cleaned_data  # No rules defined, skip validation
-
-        rules = RELATIONSHIP_RULES[volume_type]
-
-        # Validate parent
-        if parent:
-            if parent.type not in rules['allowed_parents']:
-                raise ValidationError({
-                    'parent': f"Invalid parent type. Allowed types: {', '.join(rules['allowed_parents'])}"
-                })
-            if not rules['multiple_parents'] and Volume.objects.filter(parent=parent).exists():
-                raise ValidationError({
-                    'parent': "This parent already has a child, and multiple parents are not allowed."
-                })
-            # Check hierarchy depth
-            depth = self._calculate_depth(parent) + 1
-            if depth > rules['max_depth']:
-                raise ValidationError({
-                    'parent': f"Maximum hierarchy depth ({rules['max_depth']}) exceeded."
-                })
-
-        # Validate associated object
-        if associated_object:
-            model_name = associated_object._meta.model.__name__
-            if model_name not in rules['allowed_associations']:
-                raise ValidationError({
-                    'associated_object': f"Invalid associated object. Allowed models: {', '.join(rules['allowed_associations'])}"
-                })
-            if not rules['multiple_associations'] and Volume.objects.filter(
-                associated_object=associated_object
-            ).exists():
-                raise ValidationError({
-                    'associated_object': "This object is already associated with another volume."
-                })
-
+        details = {}
+        # Map type-specific fields to the details JSON field
+        if volume_type:
+            for field_def in DETAILS_FIELDS.get(volume_type, []):
+                field_name = field_def['form_field']
+                value = cleaned_data.get(field_name)
+                if value is not None:  # Only include non-None values
+                    details[field_name] = value
+                # Enforce required fields if necessary
+                if field_def.get('required', False) and not value:
+                    self.add_error(field_name, f"{field_def['label']} is required for {volume_type} type.")
+            cleaned_data['details'] = details
         return cleaned_data
-
-    def _calculate_depth(self, volume, current_depth=0):
-        """Recursively calculate the depth of the hierarchy."""
-        if not volume or not volume.parent:
-            return current_depth
-        return self._calculate_depth(volume.parent, current_depth + 1)
 
 class DetailsForm(forms.Form):
     def __init__(self, volume_type, *args, **kwargs):
