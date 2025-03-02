@@ -73,8 +73,8 @@ class Volume(NetBoxModel):
         return self.name
 
     def clean(self):
-        if self.type in RELATIONSHIP_RULES_V2:
-            rules = RELATIONSHIP_RULES_V2[self.type]
+        if self.type in RELATIONSHIP_RULES:
+            rules = RELATIONSHIP_RULES[self.type]
             if self.parent and self.parent.type not in rules['allowed_parents']:
                 raise ValidationError(f"Invalid parent type for {self.type}.")
         super().clean()
