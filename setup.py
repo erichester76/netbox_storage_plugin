@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="netbox-storage-plugin",
-    version="0.2.0",  # Update this as needed
+    version="0.2.9",  # Update this as needed
     author="Eric Hester",
     author_email="hester1@clemson.edu",
     description="Netbox Plugin for Storage Volumes",

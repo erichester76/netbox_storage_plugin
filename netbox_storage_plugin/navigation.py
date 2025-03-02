@@ -10,11 +10,13 @@ items = (
             PluginMenuButton(
                 link='disk_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_disk']
             ),
             PluginMenuButton(
                 link='disk_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_disk']
             )
         )
@@ -27,11 +29,13 @@ items = (
             PluginMenuButton(
                 link='disk_set_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_diskset']
             ),
             PluginMenuButton(
                 link='disk_set_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_diskset']
             )
         )
@@ -44,11 +48,13 @@ items = (
             PluginMenuButton(
                 link='logical_drive_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_logicaldrive']
             ),
             PluginMenuButton(
                 link='logical_drive_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_logicaldrive']
             )
         )
@@ -61,11 +67,13 @@ items = (
             PluginMenuButton(
                 link='filesystem_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_filesystem']
             ),
             PluginMenuButton(
                 link='filesystem_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_filesystem']
             )
         )
@@ -78,11 +86,13 @@ items = (
             PluginMenuButton(
                 link='share_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_share']
             ),
             PluginMenuButton(
                 link='share_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_share']
             )
         )
@@ -95,11 +105,13 @@ items = (
             PluginMenuButton(
                 link='san_volume_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_sanvolume']
             ),
             PluginMenuButton(
                 link='san_volume_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_sanvolume']
             )
         )
@@ -112,11 +124,13 @@ items = (
             PluginMenuButton(
                 link='object_storage_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_objectstorage']
             ),
             PluginMenuButton(
                 link='object_storage_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_objectstorage']
             )
         )
@@ -129,20 +143,22 @@ items = (
             PluginMenuButton(
                 link='virtual_disk_add',
                 title='Add',
+                icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_virtualdisk']
             ),
             PluginMenuButton(
                 link='virtual_disk_import',
                 title='Import',
+                icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_virtualdisk']
             )
         )
     )
 )
 
-# Assign the menu items to the Storage menu
+# Define the top-level Storage menu
 menu = PluginMenu(
     label='Storage',
     icon_class='mdi mdi-harddisk',
-    groups=(('Storage', items),)
+    items=items  # Simplified from groups to items
 )
