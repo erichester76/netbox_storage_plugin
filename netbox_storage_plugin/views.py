@@ -1,94 +1,83 @@
 from netbox.views import generic
 from . import models, forms, tables
 
-# List Views inherting from BaseStorageListView
-class BaseStorageListView(generic.ObjectListView):
+class DiskListView(generic.ObjectListView):
     template_name = 'netbox_storage_plugin/storage_list.html'
-
-    def get_queryset(self, *args, **kwargs):
-        return self.queryset.restrict(self.request.user, 'view')
-
-    def get_context_data(self, **kwargs):
-        """Add model-specific context, like the verbose name for the title."""
-        context = super().get_context_data(**kwargs)
-        context['model_name'] = self.queryset.model._meta.verbose_name_plural
-        return context
-
-class DiskListView(BaseStorageListView):
     queryset = models.Disk.objects.all()
     table = tables.DiskTable
 
-class DiskSetListView(BaseStorageListView):
+class DiskSetListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.DiskSet.objects.all()
     table = tables.DiskSetTable
 
-class LogicalDriveListView(BaseStorageListView):
+class LogicalDriveListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.LogicalDrive.objects.all()
     table = tables.LogicalDriveTable
 
-class FilesystemListView(BaseStorageListView):
+class FilesystemListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.Filesystem.objects.all()
     table = tables.FilesystemTable
 
-class ShareListView(BaseStorageListView):
+class ShareListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.Share.objects.all()
     table = tables.ShareTable
 
-class SANVolumeListView(BaseStorageListView):
+class SANVolumeListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.SANVolume.objects.all()
     table = tables.SANVolumeTable
 
-class ObjectStorageListView(BaseStorageListView):
+class ObjectStorageListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.ObjectStorage.objects.all()
     table = tables.ObjectStorageTable
 
-class VirtualDiskListView(BaseStorageListView):
+class VirtualDiskListView(generic.ObjectListView):
+    template_name = 'netbox_storage_plugin/storage_list.html'
     queryset = models.VirtualDisk.objects.all()
     table = tables.VirtualDiskTable
 
-# Edit Views inheriting from BaseStorageEditView
-class BaseStorageEditView(generic.ObjectEditView):
+class DiskEditView(generic.ObjectEditView):
     template_name = 'netbox_storage_plugin/storage_edit.html'
- 
-    def get_queryset(self):
-        # Ensure the queryset is restricted based on user permissions
-        return self.queryset.restrict(self.request.user, 'view')
-
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['model_name'] = self.queryset.model._meta.verbose_name
-        return context
-
-class DiskEditView(BaseStorageEditView):
     queryset = models.Disk.objects.all()
     form = forms.DiskForm
 
-class DiskSetEditView(BaseStorageEditView):
+class DiskSetEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.DiskSet.objects.all()
     form = forms.DiskSetForm
 
-class LogicalDriveEditView(BaseStorageEditView):
+class LogicalDriveEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.LogicalDrive.objects.all()
     form = forms.LogicalDriveForm
 
-class FilesystemEditView(BaseStorageEditView):
+class FilesystemEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.Filesystem.objects.all()
     form = forms.FilesystemForm
 
-class ShareEditView(BaseStorageEditView):
+class ShareEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.Share.objects.all()
     form = forms.ShareForm
 
-class SANVolumeEditView(BaseStorageEditView):
+class SANVolumeEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.SANVolume.objects.all()
     form = forms.SANVolumeForm
 
-class ObjectStorageEditView(BaseStorageEditView):
+class ObjectStorageEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.ObjectStorage.objects.all()
     form = forms.ObjectStorageForm
 
-class VirtualDiskEditView(BaseStorageEditView):
+class VirtualDiskEditView(generic.ObjectEditView):
+    template_name = 'netbox_storage_plugin/storage_edit.html'
     queryset = models.VirtualDisk.objects.all()
     form = forms.VirtualDiskForm
     
