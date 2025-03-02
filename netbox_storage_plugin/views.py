@@ -75,6 +75,7 @@ class DiskView(generic.ObjectView):
     
 class DiskImportView(generic.BulkImportView):
     model = models.Disk
+    queryset = models.Disk.objects.all()
 
 class DiskBulkEditView(generic.BulkEditView):
     queryset = models.Disk.objects.all()
@@ -96,6 +97,7 @@ class DiskSetView(generic.ObjectView):
 
 class DiskSetImportView(generic.BulkImportView):
     model = models.DiskSet
+    queryset = models.DiskSet.objects.all()
 
 class DiskSetBulkEditView(generic.BulkEditView):
     queryset = models.DiskSet.objects.all()
@@ -117,6 +119,7 @@ class LogicalDriveView(generic.ObjectView):
 
 class LogicalDriveImportView(generic.BulkImportView):
     model = models.LogicalDrive
+    queryset = models.LogicalDrive.objects.all()
 
 class LogicalDriveBulkEditView(generic.BulkEditView):
     queryset = models.LogicalDrive.objects.all()
@@ -138,6 +141,7 @@ class FilesystemView(generic.ObjectView):
 
 class FilesystemImportView(generic.BulkImportView):
     model = models.Filesystem
+    queryset = models.Filesystem.objects.all()
 
 class FilesystemBulkEditView(generic.BulkEditView):
     queryset = models.Filesystem.objects.all()
@@ -159,6 +163,7 @@ class ShareView(generic.ObjectView):
 
 class ShareImportView(generic.BulkImportView):
     model = models.Share
+    queryset = models.Share.objects.all()
 
 class ShareBulkEditView(generic.BulkEditView):
     queryset = models.Share.objects.all()
@@ -180,6 +185,7 @@ class SANVolumeView(generic.ObjectView):
 
 class SANVolumeImportView(generic.BulkImportView):
     model = models.SANVolume
+    queryset = models.SANVolume.objects.all()
 
 class SANVolumeBulkEditView(generic.BulkEditView):
     queryset = models.SANVolume.objects.all()
@@ -201,6 +207,7 @@ class ObjectStorageView(generic.ObjectView):
 
 class ObjectStorageImportView(generic.BulkImportView):
     model = models.ObjectStorage
+    queryset = models.ObjectStorage.objects.all()
 
 class ObjectStorageBulkEditView(generic.BulkEditView):
     queryset = models.ObjectStorage.objects.all()
@@ -222,6 +229,7 @@ class VMDiskView(generic.ObjectView):
 
 class VMDiskImportView(generic.BulkImportView):
     model = models.VMDisk
+    queryset = models.VMDisk.objects.all()
 
 class VMDiskBulkEditView(generic.BulkEditView):
     queryset = models.VMDisk.objects.all()
