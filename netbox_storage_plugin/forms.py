@@ -21,12 +21,12 @@ class DiskForm(NetBoxModelForm):
     content_type = ContentTypeChoiceField(
         queryset=ContentType.objects.all().order_by('app_label', 'model'),
         required=False,
-        label='Associated Object Type'
+        label='Parent Object Type'
     )
     
     object_id = forms.CharField(
         required=False,
-        label='Associated Object',
+        label='Parent Object',
         help_text='Select an object of the chosen type.'
     )
     
@@ -38,12 +38,22 @@ class DiskForm(NetBoxModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['content_type'].queryset = ContentType.objects.filter(
-            Q(app_label='dcim', model='device') |
-            Q(app_label='virtualization', model='virtualmachine')
+            Q(app_label='netbox_storage_plugin', model='disk') |
+            Q(app_label='netbox_storage_plugin', model='diskset') |
+            Q(app_label='netbox_storage_plugin', model='logicaldisk') |
+            Q(app_label='netbox_storage_plugin', model='filesystem') |
+            Q(app_label='netbox_storage_plugin', model='share') |
+            Q(app_label='netbox_storage_plugin', model='sanvolme') |
+            Q(app_label='netbox_storage_plugin', model='objectstorage') |
+            Q(app_label='netbox_storage_plugin', model='virtualdisk')
         )
         self.fields['associated_object_type'].queryset = ContentType.objects.filter(
             Q(app_label='dcim', model='device') |
+            Q(app_label='virtualization', model='cluster')
             Q(app_label='virtualization', model='virtualmachine')
+            Q(app_label='virtualization', model='virtualdisk')
+
+
         )
 
 
