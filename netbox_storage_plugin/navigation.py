@@ -22,18 +22,18 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:disk_set_list',
+        link='plugins:netbox_storage_plugin:diskset_list',
         link_text='Disk Sets',
         permissions=['netbox_storage_plugin.view_diskset'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:disk_set_add',
+                link='plugins:netbox_storage_plugin:diskset_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_diskset']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:disk_set_import',
+                link='plugins:netbox_storage_plugin:diskset_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_diskset']
@@ -41,18 +41,18 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:logical_drive_list',
+        link='plugins:netbox_storage_plugin:logicaldrive_list',
         link_text='Logical Drives',
         permissions=['netbox_storage_plugin.view_logicaldrive'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:logical_drive_add',
+                link='plugins:netbox_storage_plugin:logicaldrive_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_logicaldrive']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:logical_drive_import',
+                link='plugins:netbox_storage_plugin:logicaldrive_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_logicaldrive']
@@ -98,18 +98,18 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:san_volume_list',
+        link='plugins:netbox_storage_plugin:sanvolume_list',
         link_text='SAN Volumes',
         permissions=['netbox_storage_plugin.view_sanvolume'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:san_volume_add',
+                link='plugins:netbox_storage_plugin:sanvolume_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_sanvolume']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:san_volume_import',
+                link='plugins:netbox_storage_plugin:sanvolume_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_sanvolume']
@@ -117,18 +117,18 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:object_storage_list',
+        link='plugins:netbox_storage_plugin:objectstorage_list',
         link_text='Object Storages',
         permissions=['netbox_storage_plugin.view_objectstorage'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:object_storage_add',
+                link='plugins:netbox_storage_plugin:objectstorage_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_objectstorage']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:object_storage_import',
+                link='plugins:netbox_storage_plugin:objectstorage_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_objectstorage']
@@ -136,18 +136,18 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:virtual_disk_list',
+        link='plugins:netbox_storage_plugin:virtualdisk_list',
         link_text='Virtual Disks',
         permissions=['netbox_storage_plugin.view_virtualdisk'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:virtual_disk_add',
+                link='plugins:netbox_storage_plugin:virtualdisk_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
                 permissions=['netbox_storage_plugin.add_virtualdisk']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:virtual_disk_import',
+                link='plugins:netbox_storage_plugin:virtualdisk_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
                 permissions=['netbox_storage_plugin.import_virtualdisk']
