@@ -1,10 +1,37 @@
 from netbox.forms import NetBoxModelForm
 from . import models
+from netbox.forms.fields import DynamicModelChoiceField, ContentTypeChoiceField
+from django import forms
+from django.contrib.contenttypes.models import ContentType
 
 class DiskForm(NetBoxModelForm):
+    associated_object_type = ContentTypeChoiceField(
+        queryset=ContentType.objects.all().order_by('app_label', 'model'),
+        required=False,
+        label='Associated Object Type'
+    )
+    
+    associated_object_id = forms.CharField(
+        required=False,
+        label='Associated Object',
+        help_text='Select an object of the chosen type.'
+    )
+       
+    content_type = ContentTypeChoiceField(
+        queryset=ContentType.objects.all().order_by('app_label', 'model'),
+        required=False,
+        label='Associated Object Type'
+    )
+    
+    object_id = forms.CharField(
+        required=False,
+        label='Associated Object',
+        help_text='Select an object of the chosen type.'
+    )
+    
     class Meta:
         model = models.Disk
-        fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'content_type', 'object_id', 'interface', 'speed']
+        fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'associated_object', 'associated_object_type', 'associated_object_id', 'interface', 'speed']
 
 class DiskSetForm(NetBoxModelForm):
     class Meta:
