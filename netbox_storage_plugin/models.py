@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
+from netbox.models import NetBoxModel
 
 # Choices definitions
 INTERFACE_CHOICES = [
@@ -122,7 +123,7 @@ SAN_PROTOCOL_CHOICES = [
 
 
 # Models
-class Disk(models.Model):
+class Disk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk")
     description = models.TextField(blank=True, help_text="Additional notes or context about the disk")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the disk in bytes")
@@ -138,7 +139,7 @@ class Disk(models.Model):
     def __str__(self):
         return self.name
 
-class DiskSet(models.Model):
+class DiskSet(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk set")
     description = models.TextField(blank=True, help_text="Additional notes or context about the disk set")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the disk set in bytes")
@@ -155,7 +156,7 @@ class DiskSet(models.Model):
     def __str__(self):
         return self.name
 
-class LogicalDrive(models.Model):
+class LogicalDrive(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the logical drive")
     description = models.TextField(blank=True, help_text="Additional notes or context about the logical drive")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the logical drive in bytes")
@@ -171,7 +172,7 @@ class LogicalDrive(models.Model):
     def __str__(self):
         return self.name
 
-class Filesystem(models.Model):
+class Filesystem(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the filesystem")
     description = models.TextField(blank=True, help_text="Additional notes or context about the filesystem")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the filesystem in bytes")
@@ -187,7 +188,7 @@ class Filesystem(models.Model):
     def __str__(self):
         return self.name
 
-class Share(models.Model):
+class Share(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the share")
     description = models.TextField(blank=True, help_text="Additional notes or context about the share")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the share in bytes")
@@ -203,7 +204,7 @@ class Share(models.Model):
     def __str__(self):
         return self.name
 
-class SANVolume(models.Model):
+class SANVolume(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the SAN volume")
     description = models.TextField(blank=True, help_text="Additional notes or context about the SAN volume")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the SAN volume in bytes")
@@ -220,7 +221,7 @@ class SANVolume(models.Model):
     def __str__(self):
         return self.name
 
-class ObjectStorage(models.Model):
+class ObjectStorage(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the object storage")
     description = models.TextField(blank=True, help_text="Additional notes or context about the object storage")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the object storage in bytes")
@@ -237,7 +238,7 @@ class ObjectStorage(models.Model):
     def __str__(self):
         return self.name
 
-class VirtualDisk(models.Model):
+class VirtualDisk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the virtual disk")
     description = models.TextField(blank=True, help_text="Additional notes or context about the virtual disk")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the virtual disk in bytes")
