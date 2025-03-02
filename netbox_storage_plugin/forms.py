@@ -1,22 +1,17 @@
 from django import forms
-from netbox.forms import NetBoxModelForm
-from django.contrib.contenttypes.models import ContentType
-from .models import Volume
 from django.core.exceptions import ValidationError
-from .details_fields import RELATIONSHIP_RULES, DETAILS_FIELDS
+from .models import Volume
+from .details_fields import DETAILS_FIELDS, RELATIONSHIP_RULES
 
 class VolumeForm(forms.ModelForm):
-    # Define type-specific fields dynamically from DETAILS_FIELDS
+    # Dynamically add type-specific fields from DETAILS_FIELDS
     for volume_type, fields in DETAILS_FIELDS.items():
         for field_def in fields:
             field_name = field_def['form_field']
-            widget = field_def['widget']
-            label = field_def['label']
-            help_text = field_def['help_text']
-            kwargs = {'label': label, 'help_text': help_text, 'required': False}
-            if 'choices' in field_def:
-                kwargs['choices'] = field_def['choices']
-            locals()[field_name] = widget(**kwargs)
+            field_class = field_def['field_class']
+            kwargs = field_def['kwargs']
+            # Create the field with the specified class and kwargs
+            locals()[field_name] = field_class(**kwargs, required=False)
 
     class Meta:
         model = Volume
@@ -26,6 +21,7 @@ class VolumeForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Hide the details JSON field from the user
         self.fields['details'].widget = forms.HiddenInput()
+
         # If editing an existing volume, populate type-specific fields from details
         if self.instance and self.instance.pk:
             details = self.instance.details or {}
@@ -33,33 +29,46 @@ class VolumeForm(forms.ModelForm):
             for field_def in DETAILS_FIELDS.get(volume_type, []):
                 field_name = field_def['form_field']
                 if field_name in self.fields:
-                    self.fields[field_name].initial = details.get(field_name)
+                    self.fields[field_name].initial = details.get(field_def['json_key'])
 
     def clean(self):
         cleaned_data = super().clean()
         volume_type = cleaned_data.get('type')
-        details = {}
+        parent = cleaned_data.get('parent')
+        associated_object = cleaned_data.get('associated_object')
+
+        # Validate parent and associated_object using RELATIONSHIP_RULES
+        if volume_type in RELATIONSHIP_RULES:
+            rules = RELATIONSHIP_RULES[volume_type]
+
+            # Validate parent
+            if parent:
+                if parent.type not in rules['allowed_parents']:
+                    raise ValidationError({
+                        'parent': f"Invalid parent type. Allowed types: {', '.join(rules['allowed_parents'])}"
+                    })
+                # You could add checks for max_depth or multiple_parents here if needed
+
+            # Validate associated_object
+            if associated_object:
+                model_name = associated_object._meta.model.__name__
+                if model_name not in rules['allowed_associations']:
+                    raise ValidationError({
+                        'associated_object': f"Invalid associated object. Allowed models: {', '.join(rules['allowed_associations'])}"
+                    })
+                # You could add checks for multiple_associations here if needed
+
         # Map type-specific fields to the details JSON field
-        if volume_type:
-            for field_def in DETAILS_FIELDS.get(volume_type, []):
+        if volume_type in DETAILS_FIELDS:
+            details = {}
+            for field_def in DETAILS_FIELDS[volume_type]:
                 field_name = field_def['form_field']
                 value = cleaned_data.get(field_name)
-                if value is not None:  # Only include non-None values
-                    details[field_name] = value
-                # Enforce required fields if necessary
-                if field_def.get('required', False) and not value:
-                    self.add_error(field_name, f"{field_def['label']} is required for {volume_type} type.")
+                if value is not None:
+                    details[field_def['json_key']] = value
+                # Enforce required fields as defined in kwargs
+                if field_def['kwargs'].get('required', False) and value in (None, ''):
+                    self.add_error(field_name, f"{field_def['kwargs']['label']} is required for {volume_type} type.")
             cleaned_data['details'] = details
-        return cleaned_data
 
-class DetailsForm(forms.Form):
-    def __init__(self, volume_type, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        for field_def in DETAILS_FIELDS.get(volume_type, []):
-            field_name = field_def['form_field']
-            widget = field_def['widget']
-            label = field_def['label']
-            help_text = field_def['help_text']
-            if 'choices' in field_def:
-                widget = forms.ChoiceField(choices=field_def['choices'])
-            self.fields[field_name] = widget(label=label, help_text=help_text, required=True)
+        return cleaned_data
