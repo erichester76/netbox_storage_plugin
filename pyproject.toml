@@ -43,3 +43,4 @@ target_version = ['py39', 'py310', 'py311', 'py312']
 
 [tool.setuptools.package-data]
 netbox_storage_plugin = ["templates/**"]
+package-data = {"netbox_storage_plugin" = ["migrations/*.py", "migrations/__init__.py"]}
