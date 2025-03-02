@@ -147,8 +147,8 @@ class Disk(NetBoxModel):
         verbose_name = 'Disk'
         verbose_name_plural = 'Disks'
         permissions = [
-            ('view_disk', 'Can view disk'),
-            ('manage_disk', 'Can manage disk'),
+            ('netbox_storage_plugin.view_disk', 'Can view disk'),
+            ('netbox_storage_plugin.manage_disk', 'Can manage disk'),
         ]
 
 class DiskSet(NetBoxModel):
@@ -176,8 +176,8 @@ class DiskSet(NetBoxModel):
         verbose_name = 'Disk Set'
         verbose_name_plural = 'Disk Sets'
         permissions = [
-            ('view_diskset', 'Can view disk set'),
-            ('manage_diskset', 'Can manage disk set'),
+            ('netbox_storage_plugin.view_diskset', 'Can view disk set'),
+            ('netbox_storage_plugin.manage_diskset', 'Can manage disk set'),
         ]
 
 class LogicalDrive(NetBoxModel):
@@ -204,8 +204,8 @@ class LogicalDrive(NetBoxModel):
         verbose_name = 'Logical Drive'
         verbose_name_plural = 'Logical Drives'
         permissions = [
-            ('view_logicaldrive', 'Can view logical drive'),
-            ('manage_logicaldrive', 'Can manage logical drive'),
+            ('netbox_storage_plugin.view_logicaldrive', 'Can view logical drive'),
+            ('netbox_storage_plugin.manage_logicaldrive', 'Can manage logical drive'),
         ]
 
 class Filesystem(NetBoxModel):
@@ -232,8 +232,8 @@ class Filesystem(NetBoxModel):
         verbose_name = 'Filesystem'
         verbose_name_plural = 'Filesystems'
         permissions = [
-            ('view_filesystem', 'Can view filesystem'),
-            ('manage_filesystem', 'Can manage filesystem'),
+            ('netbox_storage_plugin.view_filesystem', 'Can view filesystem'),
+            ('netbox_storage_plugin.manage_filesystem', 'Can manage filesystem'),
         ]
 
 class Share(NetBoxModel):
@@ -260,8 +260,8 @@ class Share(NetBoxModel):
         verbose_name = 'Share'
         verbose_name_plural = 'Shares'
         permissions = [
-            ('view_share', 'Can view share'),
-            ('manage_share', 'Can manage share'),
+            ('netbox_storage_plugin.view_share', 'Can view share'),
+            ('netbox_storage_plugin.manage_share', 'Can manage share'),
         ]
 
 class SANVolume(NetBoxModel):
@@ -289,8 +289,8 @@ class SANVolume(NetBoxModel):
         verbose_name = 'SAN Volume'
         verbose_name_plural = 'SAN Volumes'
         permissions = [
-            ('view_sanvolume', 'Can view SAN volume'),
-            ('manage_sanvolume', 'Can manage SAN volume'),
+            ('netbox_storage_plugin.view_sanvolume', 'Can view SAN volume'),
+            ('netbox_storage_plugin.manage_sanvolume', 'Can manage SAN volume'),
         ]
 
 class ObjectStorage(NetBoxModel):
@@ -318,8 +318,8 @@ class ObjectStorage(NetBoxModel):
         verbose_name = 'Object Storage'
         verbose_name_plural = 'Object Storage'
         permissions = [
-            ('view_objectstorage', 'Can view object storage'),
-            ('manage_objectstorage', 'Can manage object storage'),
+            ('netbox_storage_plugin.view_objectstorage', 'Can view object storage'),
+            ('netbox_storage_plugin.manage_objectstorage', 'Can manage object storage'),
         ]
 
 class VMDisk(NetBoxModel):
@@ -348,6 +348,6 @@ class VMDisk(NetBoxModel):
         verbose_name = 'Virtual Disk'
         verbose_name_plural = 'Virtual Disks'
         permissions = [
-            ('view_vmdisk', 'Can view virtual disk'),
-            ('manage_vmdisk', 'Can manage virtual disk'),
+            ('netbox_storage_plugin.view_vmdisk', 'Can view virtual disk'),
+            ('netbox_storage_plugin.manage_vmdisk', 'Can manage virtual disk'),
         ]
