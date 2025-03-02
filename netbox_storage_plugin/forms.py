@@ -4,6 +4,11 @@ from .models import Volume
 from .details_fields import DETAILS_FIELDS, RELATIONSHIP_RULES
 
 class VolumeForm(forms.ModelForm):
+    """
+    A form for creating and editing Volume instances, with dynamic type-specific fields
+    and validation based on RELATIONSHIP_RULES.
+    """
+
     # Dynamically add type-specific fields from DETAILS_FIELDS
     for volume_type, fields in DETAILS_FIELDS.items():
         for field_def in fields:
@@ -11,27 +16,43 @@ class VolumeForm(forms.ModelForm):
             field_class = field_def['field_class']
             kwargs = field_def['kwargs']
             # Create the field with the specified class and kwargs
-            locals()[field_name] = field_class(**kwargs)
+            locals()[field_name] = field_class(**kwargs, required=False)
 
     class Meta:
         model = Volume
-        fields = ['name', 'type', 'parent', 'size', 'details', 'description']
+        fields = ['name', 'type', 'parent', 'associated_object', 'size', 'details', 'description']
+        labels = {
+            'name': 'Name',
+            'type': 'Type',
+            'parent': 'Parent',
+            'associated_object': 'Associated Object',
+            'size': 'Size',
+            'details': 'Details',
+            'description': 'Description',
+        }
+        help_texts = {
+            'name': 'A human-readable name for the volume (e.g., "Disk 1", "Data Share")',
+            'type': 'The type of storage entity',
+            'parent': 'The parent volume, if this volume is part of a hierarchy (e.g., a filesystem on a logical drive)',
+            'size': 'The size of the volume in bytes (e.g., 1,073,741,824 for 1 GB)',
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Example: Dynamically add fields based on DETAILS_FIELDS
-        for volume_type, fields in DETAILS_FIELDS.items():
-            for field_def in fields:
+        # Hide the details JSON field from the user
+        self.fields['details'].widget = forms.HiddenInput()
+
+        # If editing an existing volume, populate type-specific fields from details
+        if self.instance and self.instance.pk:
+            details = self.instance.details or {}
+            volume_type = self.instance.type
+            for field_def in DETAILS_FIELDS.get(volume_type, []):
                 field_name = field_def['form_field']
-                # Add field if not already present; adjust field type as needed
-                if field_name not in self.fields:
-                    self.fields[field_name] = forms.CharField(
-                        label=field_def.get('label', field_name),
-                        required=False,
-                        help_text=field_def.get('help_text', '')
-                    )
+                if field_name in self.fields:
+                    self.fields[field_name].initial = details.get(field_def['json_key'])
 
     def clean(self):
+        """Validate the form and map type-specific fields to the details JSON field."""
         cleaned_data = super().clean()
         volume_type = cleaned_data.get('type')
         parent = cleaned_data.get('parent')
@@ -47,7 +68,6 @@ class VolumeForm(forms.ModelForm):
                     raise ValidationError({
                         'parent': f"Invalid parent type. Allowed types: {', '.join(rules['allowed_parents'])}"
                     })
-                # You could add checks for max_depth or multiple_parents here if needed
 
             # Validate associated_object
             if associated_object:
@@ -56,7 +76,6 @@ class VolumeForm(forms.ModelForm):
                     raise ValidationError({
                         'associated_object': f"Invalid associated object. Allowed models: {', '.join(rules['allowed_associations'])}"
                     })
-                # You could add checks for multiple_associations here if needed
 
         # Map type-specific fields to the details JSON field
         if volume_type in DETAILS_FIELDS:
