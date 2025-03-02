@@ -94,7 +94,6 @@ class DiskView(generic.ObjectView):
     
 class DiskImportView(generic.BulkImportView):
     model = models.Disk
-    form = forms.DiskImportForm
 
 class DiskBulkEditView(generic.BulkEditView):
     queryset = models.Disk.objects.all()
