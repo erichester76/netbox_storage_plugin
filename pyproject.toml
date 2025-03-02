@@ -42,4 +42,10 @@ line-length = 120
 target_version = ['py39', 'py310', 'py311', 'py312']
 
 [tool.setuptools.package-data]
-netbox_storage_plugin = ["templates/**", "migrations/**"]
+netbox_storage_plugin = [
+    "templates/**",
+    "migrations/*.py",
+    "migrations/__init__.py",
+    "api/*.py",
+    "api/__init__.py"
+]
