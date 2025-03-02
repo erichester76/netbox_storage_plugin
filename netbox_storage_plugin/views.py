@@ -40,8 +40,7 @@ class VolumeDeleteView(generic.ObjectDeleteView):
     queryset = Volume.objects.all()
 
 class VolumeImportView(generic.BulkImportView):
-    model = Volume
-    template_name = 'netbox_storage_plugin/volume_import.html'
+    queryset = Volume.objects.all()
 
 class VolumeBulkEditView(generic.BulkEditView):
     queryset = Volume.objects.all()
