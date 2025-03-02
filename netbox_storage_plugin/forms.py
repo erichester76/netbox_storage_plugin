@@ -33,6 +33,19 @@ class DiskForm(NetBoxModelForm):
         model = models.Disk
         fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'associated_object', 'associated_object_type', 'associated_object_id', 'interface', 'speed']
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['content_type'].queryset = ContentType.objects.filter(
+            Q(app_label='dcim', model='device') |
+            Q(app_label='virtualization', model='virtualmachine')
+        )
+        self.fields['associated_object_type'].queryset = ContentType.objects.filter(
+            Q(app_label='dcim', model='device') |
+            Q(app_label='virtualization', model='virtualmachine')
+        )
+
+
 class DiskSetForm(NetBoxModelForm):
     class Meta:
         model = models.DiskSet
