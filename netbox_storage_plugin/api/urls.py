@@ -11,3 +11,5 @@ router.register(r'shares', views.ShareViewSet)
 router.register(r'san-volumes', views.SANVolumeViewSet)
 router.register(r'object-storages', views.ObjectStorageViewSet)
 router.register(r'virtual-disks', views.VirtualDiskViewSet)
+
+urlpatterns = router.urls
