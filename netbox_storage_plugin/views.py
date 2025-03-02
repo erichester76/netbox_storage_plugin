@@ -9,45 +9,35 @@ from .details_fields import DETAILS_FIELDS
 
 
 class VolumeListView(generic.ObjectListView):
-    """Display a list of all storage volumes in a table format."""
     queryset = Volume.objects.all()
     table = VolumeTable
-    template_name = 'netbox_storage_plugin/volume_list.html'
 
 class VolumeView(generic.ObjectView):
-    """Display detailed information about a single volume."""
     queryset = Volume.objects.all()
     template_name = 'netbox_storage_plugin/volume_detail.html'
 
 class VolumeEditView(generic.ObjectEditView):
-    """Handle the editing of an existing volume."""
     queryset = Volume.objects.all()
     form = VolumeForm
     template_name = 'netbox_storage_plugin/volume_edit.html'
 
 class VolumeDeleteView(generic.ObjectDeleteView):
-    """Handle the deletion of a volume."""
     queryset = Volume.objects.all()
 
 class VolumeImportView(generic.BulkImportView):
-    """Handle the importation of volumes from a file or external source."""
     model = Volume
     template_name = 'netbox_storage_plugin/volume_import.html'
 
 class VolumeBulkEditView(generic.BulkEditView):
-    """Allow bulk editing of multiple volumes at once."""
     queryset = Volume.objects.all()
     table = VolumeTable
 
 class VolumeBulkDeleteView(generic.BulkDeleteView):
-    """Enable the deletion of multiple volumes in a single operation."""
     queryset = Volume.objects.all()
     table = VolumeTable
 
 class VolumeChangeLogView(generic.ObjectChangeLogView):
-    """Display the history of changes made to a specific volume."""
     base_template = 'netbox_storage_plugin/volume_detail.html'
-
 
 class GetDetailsFormView(View):
     """

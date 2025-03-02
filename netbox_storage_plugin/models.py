@@ -2,9 +2,10 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from netbox.models import NetBoxModel
+from django.core.exceptions import ValidationError
+from .details_fields import RELATIONSHIP_RULES
 
 class Volume(NetBoxModel):
-    """Represents a storage entity in NetBox."""
 
     # Choices for the type field
     VOLUME_TYPES = (
@@ -15,6 +16,7 @@ class Volume(NetBoxModel):
         ('share', 'Share'),
         ('san_volume', 'SAN Volume'),
         ('object_storage', 'Object Storage'),
+        ('virtual_disk', 'Virtual Disk'),
     )
 
     # Fields
@@ -71,6 +73,13 @@ class Volume(NetBoxModel):
     def __str__(self):
         return self.name
 
+    def clean(self):
+        if self.type in RELATIONSHIP_RULES_V2:
+            rules = RELATIONSHIP_RULES_V2[self.type]
+            if self.parent and self.parent.type not in rules['allowed_parents']:
+                raise ValidationError(f"Invalid parent type for {self.type}.")
+        super().clean()
+        
     class Meta:
         verbose_name = "Volume"
         verbose_name_plural = "Volumes"
