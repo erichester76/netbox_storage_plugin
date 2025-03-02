@@ -70,6 +70,8 @@ RELATIONSHIP_RULES = {
     },
 }
 
+import django.forms as forms
+
 DETAILS_FIELDS = {
     'disk': [
         {
@@ -82,21 +84,37 @@ DETAILS_FIELDS = {
             'form_field': 'disk_speed',
             'json_key': 'speed',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Speed', 'help_text': 'The disk speed (e.g., 7200 RPM, 10k RPM)', 'required': True}
+            'kwargs': {'label': 'Speed', 'help_text': 'The disk speed (e.g., 7200 RPM)', 'required': True}
+        },
+        {
+            'form_field': 'disk_size',
+            'json_key': 'size',
+            'field_class': forms.IntegerField,
+            'kwargs': {'label': 'Size', 'help_text': 'The size in bytes (e.g., 1073741824 for 1 GB)', 'required': True}
         },
     ],
     'disk_set': [
         {
             'form_field': 'disk_set_type',
             'json_key': 'type',
-            'field_class': forms.CharField,
-            'kwargs': {'label': 'Type', 'help_text': 'The type of disk set (e.g., RAID)', 'required': True}
+            'field_class': forms.ChoiceField,
+            'kwargs': {
+                'choices': [('raid', 'RAID'), ('jbod', 'JBOD')],
+                'label': 'Type',
+                'help_text': 'The type of disk set',
+                'required': True
+            }
         },
         {
             'form_field': 'disk_set_raid_level',
             'json_key': 'raid_level',
-            'field_class': forms.IntegerField,
-            'kwargs': {'label': 'RAID Level', 'help_text': 'The RAID level (e.g., 0, 1, 5)', 'required': True}
+            'field_class': forms.ChoiceField,
+            'kwargs': {
+                'choices': [(0, 'RAID 0'), (1, 'RAID 1'), (5, 'RAID 5'), (10, 'RAID 10')],
+                'label': 'RAID Level',
+                'help_text': 'The RAID level',
+                'required': True
+            }
         },
         {
             'form_field': 'disk_set_disk_count',
@@ -123,13 +141,19 @@ DETAILS_FIELDS = {
             'field_class': forms.CharField,
             'kwargs': {'label': 'Identifier', 'help_text': 'The identifier (e.g., sda1, vg_data/lv_home)', 'required': True}
         },
+        {
+            'form_field': 'logical_drive_size',
+            'json_key': 'size',
+            'field_class': forms.IntegerField,
+            'kwargs': {'label': 'Size', 'help_text': 'The size in bytes', 'required': True}
+        },
     ],
     'filesystem': [
         {
             'form_field': 'filesystem_type',
             'json_key': 'fs_type',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Filesystem Type', 'help_text': 'The type of filesystem (e.g., ext4, xfs, zfs)', 'required': True}
+            'kwargs': {'label': 'Filesystem Type', 'help_text': 'The type (e.g., ext4, xfs)', 'required': True}
         },
         {
             'form_field': 'filesystem_mount_point',
@@ -154,7 +178,7 @@ DETAILS_FIELDS = {
             'form_field': 'share_export_path',
             'json_key': 'export_path',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Export Path', 'help_text': 'The path where the share is exported (e.g., /mnt/share)', 'required': True}
+            'kwargs': {'label': 'Export Path', 'help_text': 'The path where the share is exported', 'required': True}
         },
     ],
     'san_volume': [
@@ -173,7 +197,7 @@ DETAILS_FIELDS = {
             'form_field': 'san_target',
             'json_key': 'target',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Target', 'help_text': 'The target identifier (e.g., IQN for iSCSI)', 'required': True}
+            'kwargs': {'label': 'Target', 'help_text': 'The target identifier (e.g., IQN)', 'required': True}
         },
         {
             'form_field': 'san_lun_id',
@@ -181,13 +205,19 @@ DETAILS_FIELDS = {
             'field_class': forms.IntegerField,
             'kwargs': {'label': 'LUN ID', 'help_text': 'The LUN identifier', 'required': True}
         },
+        {
+            'form_field': 'san_size',
+            'json_key': 'size',
+            'field_class': forms.IntegerField,
+            'kwargs': {'label': 'Size', 'help_text': 'The size in bytes', 'required': True}
+        },
     ],
     'object_storage': [
         {
             'form_field': 'object_storage_provider',
             'json_key': 'provider',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Provider', 'help_text': 'The cloud provider (e.g., AWS, Azure, Google Cloud)', 'required': True}
+            'kwargs': {'label': 'Provider', 'help_text': 'The cloud provider (e.g., AWS)', 'required': True}
         },
         {
             'form_field': 'object_storage_region',
@@ -206,26 +236,42 @@ DETAILS_FIELDS = {
         {
             'form_field': 'virtual_disk_format',
             'json_key': 'format',
-            'field_class': forms.CharField,
-            'kwargs': {'label': 'Format', 'help_text': 'The file format of the virtual disk (e.g., VMDK, QCOW2)', 'required': True}
+            'field_class': forms.ChoiceField,
+            'kwargs': {
+                'choices': [('vmdk', 'VMDK'), ('qcow2', 'QCOW2'), ('vdi', 'VDI')],
+                'label': 'Format',
+                'help_text': 'The file format of the virtual disk',
+                'required': True
+            }
         },
         {
             'form_field': 'virtual_disk_provisioning',
             'json_key': 'provisioning',
-            'field_class': forms.CharField,
-            'kwargs': {'label': 'Provisioning', 'help_text': 'The provisioning type (e.g., thin, thick)', 'required': True}
+            'field_class': forms.ChoiceField,
+            'kwargs': {
+                'choices': [('thin', 'Thin'), ('thick', 'Thick'), ('lazy', 'Lazy Zeroed Thick')],
+                'label': 'Provisioning',
+                'help_text': 'The provisioning type',
+                'required': True
+            }
         },
         {
             'form_field': 'virtual_disk_controller',
             'json_key': 'controller',
             'field_class': forms.CharField,
-            'kwargs': {'label': 'Controller', 'help_text': 'The type of controller the disk is attached to (e.g., IDE, SCSI)', 'required': True}
+            'kwargs': {'label': 'Controller', 'help_text': 'The controller type (e.g., SCSI)', 'required': True}
         },
         {
             'form_field': 'virtual_disk_path',
             'json_key': 'path',
             'field_class': forms.CharField,
             'kwargs': {'label': 'Path', 'help_text': 'The path to the virtual disk file', 'required': True}
+        },
+        {
+            'form_field': 'virtual_disk_size',
+            'json_key': 'size',
+            'field_class': forms.IntegerField,
+            'kwargs': {'label': 'Size', 'help_text': 'The size in bytes', 'required': True}
         },
     ],
 }
