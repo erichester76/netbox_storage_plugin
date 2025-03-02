@@ -5,8 +5,7 @@ from . import models, forms, tables
 class BaseStorageListView(generic.ObjectListView):
     template_name = 'netbox_storage_plugin/storage_list.html'
 
-    def get_queryset(self):
-        # Ensure the queryset is restricted based on user permissions
+    def get_queryset(self, *args, **kwargs):
         return self.queryset.restrict(self.request.user, 'view')
 
     def get_context_data(self, **kwargs):
