@@ -136,21 +136,21 @@ items = (
         )
     ),
     PluginMenuItem(
-        link='plugins:netbox_storage_plugin:virtualdisk_list',
+        link='plugins:netbox_storage_plugin:vmdisk_list',
         link_text='Virtual Disks',
-        permissions=['netbox_storage_plugin.view_virtualdisk'],
+        permissions=['netbox_storage_plugin.view_vmdisk'],
         buttons=(
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:virtualdisk_add',
+                link='plugins:netbox_storage_plugin:vmdisk_add',
                 title='Add',
                 icon_class='mdi mdi-plus',
-                permissions=['netbox_storage_plugin.add_virtualdisk']
+                permissions=['netbox_storage_plugin.add_vmdisk']
             ),
             PluginMenuButton(
-                link='plugins:netbox_storage_plugin:virtualdisk_import',
+                link='plugins:netbox_storage_plugin:vmdisk_import',
                 title='Import',
                 icon_class='mdi mdi-upload',
-                permissions=['netbox_storage_plugin.import_virtualdisk']
+                permissions=['netbox_storage_plugin.import_vmdisk']
             )
         )
     )

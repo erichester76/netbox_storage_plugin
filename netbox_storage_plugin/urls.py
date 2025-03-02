@@ -80,13 +80,13 @@ urlpatterns = [
     path('object-storages/<int:pk>/changelog/', views.ObjectStorageChangeLogView.as_view(), name='objectstorage_changelog'),
 
     # VirtualDisk URLs
-    path('virtual-disks/', views.VMDiskListView.as_view(), name='virtualdisk_list'),
-    path('virtual-disks/add/', views.VMDiskEditView.as_view(), name='virtualdisk_add'),
-    path('virtual-disks/<int:pk>/edit/', views.VMDiskEditView.as_view(), name='virtualdisk_edit'),
-    path('virtual-disks/<int:pk>/delete/', views.VMDiskDeleteView.as_view(), name='virtualdisk_delete'),
-    path('virtual-disks/<int:pk>/', views.VMDiskView.as_view(), name='virtualdisk_detail'),
-    path('virtual-disks/import/', views.VMDiskImportView.as_view(), name='virtualdisk_import'),
-    path('virtual-disks/bulk-edit/', views.VMDiskBulkEditView.as_view(), name='virtualdisk_bulk_edit'),
-    path('virtual-disks/bulk-delete/', views.VMDiskBulkDeleteView.as_view(), name='virtualdisk_bulk_delete'),
-    path('virtual-disks/<int:pk>/changelog/', views.VMDiskChangeLogView.as_view(), name='virtualdisk_changelog'),
+    path('virtual-disks/', views.VMDiskListView.as_view(), name='vmdisk_list'),
+    path('virtual-disks/add/', views.VMDiskEditView.as_view(), name='vmdisk_add'),
+    path('virtual-disks/<int:pk>/edit/', views.VMDiskEditView.as_view(), name='vmdisk_edit'),
+    path('virtual-disks/<int:pk>/delete/', views.VMDiskDeleteView.as_view(), name='vmdisk_delete'),
+    path('virtual-disks/<int:pk>/', views.VMDiskView.as_view(), name='vmdisk_detail'),
+    path('virtual-disks/import/', views.VMDiskImportView.as_view(), name='vmdisk_import'),
+    path('virtual-disks/bulk-edit/', views.VMDiskBulkEditView.as_view(), name='vmdisk_bulk_edit'),
+    path('virtual-disks/bulk-delete/', views.VMDiskBulkDeleteView.as_view(), name='vmdisk_bulk_delete'),
+    path('virtual-disks/<int:pk>/changelog/', views.VMDiskChangeLogView.as_view(), name='vmdisk_changelog'),
 ]
