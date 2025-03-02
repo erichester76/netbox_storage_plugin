@@ -1,8 +1,8 @@
-from netbox.forms import NetBoxModelForm
 from . import models
-from netbox.forms.fields import DynamicModelChoiceField, ContentTypeChoiceField
-from django import forms
 from django.contrib.contenttypes.models import ContentType
+from utilities.forms.fields import ContentTypeChoiceField
+from netbox.forms import NetBoxModelForm
+from django import forms
 
 class DiskForm(NetBoxModelForm):
     associated_object_type = ContentTypeChoiceField(
