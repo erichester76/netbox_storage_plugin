@@ -50,6 +50,11 @@ class VirtualDiskListView(BaseStorageListView):
 # Edit Views inheriting from BaseStorageEditView
 class BaseStorageEditView(generic.ObjectEditView):
     template_name = 'netbox_storage_plugin/storage_edit.html'
+ 
+    def get_queryset(self):
+        # Ensure the queryset is restricted based on user permissions
+        return self.queryset.restrict(self.request.user, 'view')
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
