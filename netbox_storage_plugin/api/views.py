@@ -37,7 +37,7 @@ class ObjectStorageViewSet(ModelViewSet):
     queryset = models.ObjectStorage.objects.all()
     serializer_class = serializers.ObjectStorageSerializer
 
-# VirtualDisk ViewSet
-class VirtualDiskViewSet(ModelViewSet):
-    queryset = models.VirtualDisk.objects.all()
-    serializer_class = serializers.VirtualDiskSerializer
+# VMDisk ViewSet
+class VMDiskViewSet(ModelViewSet):
+    queryset = models.VMDisk.objects.all()
+    serializer_class = serializers.VMDiskSerializer

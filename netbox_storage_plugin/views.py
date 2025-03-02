@@ -29,9 +29,9 @@ class ObjectStorageListView(generic.ObjectListView):
     queryset = models.ObjectStorage.objects.all()
     table = tables.ObjectStorageTable
 
-class VirtualDiskListView(generic.ObjectListView):
-    queryset = models.VirtualDisk.objects.all()
-    table = tables.VirtualDiskTable
+class VMDiskListView(generic.ObjectListView):
+    queryset = models.VMDisk.objects.all()
+    table = tables.VMDiskTable
 
 class DiskEditView(generic.ObjectEditView):
     queryset = models.Disk.objects.all()
@@ -61,9 +61,9 @@ class ObjectStorageEditView(generic.ObjectEditView):
     queryset = models.ObjectStorage.objects.all()
     form = forms.ObjectStorageForm
 
-class VirtualDiskEditView(generic.ObjectEditView):
-    queryset = models.VirtualDisk.objects.all()
-    form = forms.VirtualDiskForm
+class VMDiskEditView(generic.ObjectEditView):
+    queryset = models.VMDisk.objects.all()
+    form = forms.VMDiskForm
     
     
 # Disk Views
@@ -213,24 +213,24 @@ class ObjectStorageBulkDeleteView(generic.BulkDeleteView):
 class ObjectStorageChangeLogView(generic.ObjectChangeLogView):
     queryset = models.ObjectStorage.objects.all()
 
-# VirtualDisk Views
-class VirtualDiskDeleteView(generic.ObjectDeleteView):
-    queryset = models.VirtualDisk.objects.all()
+# VMDisk Views
+class VMDiskDeleteView(generic.ObjectDeleteView):
+    queryset = models.VMDisk.objects.all()
 
-class VirtualDiskView(generic.ObjectView):
-    queryset = models.VirtualDisk.objects.all()
+class VMDiskView(generic.ObjectView):
+    queryset = models.VMDisk.objects.all()
 
-class VirtualDiskImportView(generic.BulkImportView):
-    model = models.VirtualDisk
+class VMDiskImportView(generic.BulkImportView):
+    model = models.VMDisk
 
-class VirtualDiskBulkEditView(generic.BulkEditView):
-    queryset = models.VirtualDisk.objects.all()
-    table = tables.VirtualDiskTable
+class VMDiskBulkEditView(generic.BulkEditView):
+    queryset = models.VMDisk.objects.all()
+    table = tables.VMDiskTable
 
-class VirtualDiskBulkDeleteView(generic.BulkDeleteView):
-    queryset = models.VirtualDisk.objects.all()
-    table = tables.VirtualDiskTable
+class VMDiskBulkDeleteView(generic.BulkDeleteView):
+    queryset = models.VMDisk.objects.all()
+    table = tables.VMDiskTable
 
-class VirtualDiskChangeLogView(generic.ObjectChangeLogView):
-    queryset = models.VirtualDisk.objects.all()
+class VMDiskChangeLogView(generic.ObjectChangeLogView):
+    queryset = models.VMDisk.objects.all()
  

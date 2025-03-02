@@ -238,11 +238,11 @@ class ObjectStorage(NetBoxModel):
     def __str__(self):
         return self.name
 
-class VirtualDisk(NetBoxModel):
+class VMDisk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the virtual disk")
     description = models.TextField(blank=True, help_text="Additional notes or context about the virtual disk")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the virtual disk in bytes")
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_virtualdisk')
+    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_VMDisk')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
     parent = GenericForeignKey('parent_content_type', 'parent_object_id')
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)

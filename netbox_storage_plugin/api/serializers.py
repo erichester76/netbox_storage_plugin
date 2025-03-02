@@ -43,8 +43,8 @@ class ObjectStorageSerializer(NetBoxModelSerializer):
         model = models.ObjectStorage
         fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'provider', 'region', 'bucket_name')
 
-# VirtualDisk Serializer
-class VirtualDiskSerializer(NetBoxModelSerializer):
+# VMDisk Serializer
+class VMDiskSerializer(NetBoxModelSerializer):
     class Meta:
-        model = models.VirtualDisk
+        model = models.VMDisk
         fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'format', 'provisioning', 'controller', 'path')

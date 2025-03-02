@@ -36,7 +36,7 @@ class ObjectStorageForm(NetBoxModelForm):
         model = models.ObjectStorage
         fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'content_type', 'object_id', 'provider', 'region', 'bucket_name']
 
-class VirtualDiskForm(NetBoxModelForm):
+class VMDiskForm(NetBoxModelForm):
     class Meta:
-        model = models.VirtualDisk
+        model = models.VMDisk
         fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'content_type', 'object_id', 'format', 'provisioning', 'controller', 'path']

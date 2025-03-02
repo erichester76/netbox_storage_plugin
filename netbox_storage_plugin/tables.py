@@ -82,8 +82,8 @@ class ObjectStorageTable(NetBoxTable):
         model = models.ObjectStorage
         fields = ('name', 'provider', 'region', 'bucket_name', 'size', 'description')
 
-# Table for VirtualDisk model
-class VirtualDiskTable(NetBoxTable):
+# Table for VMDisk model
+class VMDiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
     format = tables.Column()
     provisioning = tables.Column()
@@ -92,5 +92,5 @@ class VirtualDiskTable(NetBoxTable):
     size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.VirtualDisk
+        model = models.VMDisk
         fields = ('name', 'format', 'provisioning', 'controller', 'path', 'size', 'description')
