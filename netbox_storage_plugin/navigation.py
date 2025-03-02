@@ -155,10 +155,8 @@ items = (
         )
     )
 )
-
-# Define the top-level Storage menu
 menu = PluginMenu(
     label='Storage',
     icon_class='mdi mdi-harddisk',
-    items=items  # Simplified from groups to items
+    groups=(('Storage', items),)
 )
