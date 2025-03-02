@@ -2,8 +2,9 @@ from django.db import models
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from netbox.models import NetBoxModel
+from django.urls import reverse
 
-# Choices definitions
+# Choices definitions (unchanged from original)
 INTERFACE_CHOICES = [
     ('SATA', 'SATA'),
     ('SAS', 'SAS'),
@@ -35,8 +36,8 @@ RAID_LEVEL_CHOICES = [
     (10, 'RAID 10'),
     (50, 'RAID 50'),
     (60, 'RAID 60'),
-    (100,'raidz1'),
-    (101,'raidz2'),
+    (100, 'raidz1'),
+    (101, 'raidz2'),
     (102, 'draid')
 ]
 
@@ -121,7 +122,6 @@ SAN_PROTOCOL_CHOICES = [
     ('fcoe', 'FCoE'),
 ]
 
-
 # Models
 class Disk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk")
@@ -138,6 +138,18 @@ class Disk(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:disk_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Disk'
+        verbose_name_plural = 'Disks'
+        permissions = [
+            ('view_disk', 'Can view disk'),
+            ('manage_disk', 'Can manage disk'),
+        ]
 
 class DiskSet(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk set")
@@ -156,6 +168,18 @@ class DiskSet(NetBoxModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:diskset_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Disk Set'
+        verbose_name_plural = 'Disk Sets'
+        permissions = [
+            ('view_diskset', 'Can view disk set'),
+            ('manage_diskset', 'Can manage disk set'),
+        ]
+
 class LogicalDrive(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the logical drive")
     description = models.TextField(blank=True, help_text="Additional notes or context about the logical drive")
@@ -171,6 +195,18 @@ class LogicalDrive(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:logicaldrive_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Logical Drive'
+        verbose_name_plural = 'Logical Drives'
+        permissions = [
+            ('view_logicaldrive', 'Can view logical drive'),
+            ('manage_logicaldrive', 'Can manage logical drive'),
+        ]
 
 class Filesystem(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the filesystem")
@@ -188,6 +224,18 @@ class Filesystem(NetBoxModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:filesystem_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Filesystem'
+        verbose_name_plural = 'Filesystems'
+        permissions = [
+            ('view_filesystem', 'Can view filesystem'),
+            ('manage_filesystem', 'Can manage filesystem'),
+        ]
+
 class Share(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the share")
     description = models.TextField(blank=True, help_text="Additional notes or context about the share")
@@ -203,6 +251,18 @@ class Share(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:share_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Share'
+        verbose_name_plural = 'Shares'
+        permissions = [
+            ('view_share', 'Can view share'),
+            ('manage_share', 'Can manage share'),
+        ]
 
 class SANVolume(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the SAN volume")
@@ -221,6 +281,18 @@ class SANVolume(NetBoxModel):
     def __str__(self):
         return self.name
 
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:sanvolume_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'SAN Volume'
+        verbose_name_plural = 'SAN Volumes'
+        permissions = [
+            ('view_sanvolume', 'Can view SAN volume'),
+            ('manage_sanvolume', 'Can manage SAN volume'),
+        ]
+
 class ObjectStorage(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the object storage")
     description = models.TextField(blank=True, help_text="Additional notes or context about the object storage")
@@ -237,6 +309,18 @@ class ObjectStorage(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:objectstorage_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Object Storage'
+        verbose_name_plural = 'Object Storage'
+        permissions = [
+            ('view_objectstorage', 'Can view object storage'),
+            ('manage_objectstorage', 'Can manage object storage'),
+        ]
 
 class VMDisk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the virtual disk")
@@ -255,3 +339,15 @@ class VMDisk(NetBoxModel):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:vmdisk_detail', args=[self.pk])
+
+    class Meta:
+        ordering = ['name']
+        verbose_name = 'Virtual Disk'
+        verbose_name_plural = 'Virtual Disks'
+        permissions = [
+            ('view_vmdisk', 'Can view virtual disk'),
+            ('manage_vmdisk', 'Can manage virtual disk'),
+        ]

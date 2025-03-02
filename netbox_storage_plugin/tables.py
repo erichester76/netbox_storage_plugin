@@ -1,96 +1,97 @@
 import django_tables2 as tables
 from netbox.tables import NetBoxTable
-from . import models
+from .models import (
+    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk
+)
 
-# Table for Disk model
 class DiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     interface = tables.Column()
     speed = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.Disk
-        fields = ('name', 'interface', 'speed', 'size', 'description')
+        model = Disk
+        fields = ('pk', 'name', 'size', 'interface', 'speed', 'description')
+        default_columns = ('name', 'size', 'interface', 'speed')
 
-# Table for DiskSet model
 class DiskSetTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     type = tables.Column()
     raid_level = tables.Column()
     disk_count = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.DiskSet
-        fields = ('name', 'type', 'raid_level', 'disk_count', 'size', 'description')
+        model = DiskSet
+        fields = ('pk', 'name', 'size', 'type', 'raid_level', 'disk_count', 'description')
+        default_columns = ('name', 'size', 'type', 'raid_level', 'disk_count')
 
-# Table for LogicalDrive model
 class LogicalDriveTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     type = tables.Column()
     identifier = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.LogicalDrive
-        fields = ('name', 'type', 'identifier', 'size', 'description')
+        model = LogicalDrive
+        fields = ('pk', 'name', 'size', 'type', 'identifier', 'description')
+        default_columns = ('name', 'size', 'type', 'identifier')
 
-# Table for Filesystem model
 class FilesystemTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     fs_type = tables.Column()
     mount_point = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.Filesystem
-        fields = ('name', 'fs_type', 'mount_point', 'size', 'description')
+        model = Filesystem
+        fields = ('pk', 'name', 'size', 'fs_type', 'mount_point', 'description')
+        default_columns = ('name', 'size', 'fs_type', 'mount_point')
 
-# Table for Share model
 class ShareTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     protocol = tables.Column()
     export_path = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.Share
-        fields = ('name', 'protocol', 'export_path', 'size', 'description')
+        model = Share
+        fields = ('pk', 'name', 'size', 'protocol', 'export_path', 'description')
+        default_columns = ('name', 'size', 'protocol', 'export_path')
 
-# Table for SANVolume model
 class SANVolumeTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     protocol = tables.Column()
     target = tables.Column()
     lun_id = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.SANVolume
-        fields = ('name', 'protocol', 'target', 'lun_id', 'size', 'description')
+        model = SANVolume
+        fields = ('pk', 'name', 'size', 'protocol', 'target', 'lun_id', 'description')
+        default_columns = ('name', 'size', 'protocol', 'target', 'lun_id')
 
-# Table for ObjectStorage model
 class ObjectStorageTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     provider = tables.Column()
     region = tables.Column()
     bucket_name = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.ObjectStorage
-        fields = ('name', 'provider', 'region', 'bucket_name', 'size', 'description')
+        model = ObjectStorage
+        fields = ('pk', 'name', 'size', 'provider', 'region', 'bucket_name', 'description')
+        default_columns = ('name', 'size', 'provider', 'region', 'bucket_name')
 
-# Table for VMDisk model
 class VMDiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
+    size = tables.Column()
     format = tables.Column()
     provisioning = tables.Column()
     controller = tables.Column()
-    path = tables.Column()
-    size = tables.Column()
 
     class Meta(NetBoxTable.Meta):
-        model = models.VMDisk
-        fields = ('name', 'format', 'provisioning', 'controller', 'path', 'size', 'description')
+        model = VMDisk
+        fields = ('pk', 'name', 'size', 'format', 'provisioning', 'controller', 'path', 'description')
+        default_columns = ('name', 'size', 'format', 'provisioning', 'controller')
