@@ -2,7 +2,7 @@ from netbox.views import generic
 from . import models, forms, tables
 
 # List Views inherting from BaseStorageListView
-class BaseStorageListView(object.ObjectListView):
+class BaseStorageListView(generic.ObjectListView):
     template_name = 'netbox_storage_plugin/storage_list.html'
 
     def get_context_data(self, **kwargs):
