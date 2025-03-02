@@ -5,6 +5,10 @@ from . import models, forms, tables
 class BaseStorageListView(generic.ObjectListView):
     template_name = 'netbox_storage_plugin/storage_list.html'
 
+    def get_queryset(self):
+        # Ensure the queryset is restricted based on user permissions
+        return self.queryset.restrict(self.request.user, 'view')
+
     def get_context_data(self, **kwargs):
         """Add model-specific context, like the verbose name for the title."""
         context = super().get_context_data(**kwargs)
