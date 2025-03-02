@@ -15,7 +15,7 @@ class VolumeForm(forms.ModelForm):
             field_name = field_def['form_field']
             field_class = field_def['field_class']
             kwargs = field_def['kwargs']
-            # Create the field with the specified class and kwargs
+            # Initialize the field using only kwargs
             locals()[field_name] = field_class(**kwargs)
 
     class Meta:
