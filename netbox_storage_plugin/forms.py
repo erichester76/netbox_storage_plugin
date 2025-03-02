@@ -34,7 +34,6 @@ class DiskForm(NetBoxModelForm):
         model = models.Disk
         fields = ['name', 'description', 'size', 'interface', 'speed']
 
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['content_type'].queryset = ContentType.objects.filter(
