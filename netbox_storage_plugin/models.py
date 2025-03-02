@@ -52,7 +52,6 @@ class Volume(NetBoxModel):
     associated_object = GenericForeignKey(
         'content_type',
         'object_id',
-        help_text="The device, virtual machine, virtual disk, or other object this volume is linked to"
     )
     size = models.PositiveBigIntegerField(
         null=True,
