@@ -21,7 +21,6 @@ class DiskSetTable(NetBoxTable):
     raid_level = tables.Column()
     disk_count = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.DiskSet
@@ -33,7 +32,6 @@ class LogicalDriveTable(NetBoxTable):
     type = tables.Column()
     identifier = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.LogicalDrive
@@ -45,7 +43,6 @@ class FilesystemTable(NetBoxTable):
     fs_type = tables.Column()
     mount_point = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.Filesystem
@@ -57,7 +54,6 @@ class ShareTable(NetBoxTable):
     protocol = tables.Column()
     export_path = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.Share
@@ -70,7 +66,6 @@ class SANVolumeTable(NetBoxTable):
     target = tables.Column()
     lun_id = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.SANVolume
@@ -83,7 +78,6 @@ class ObjectStorageTable(NetBoxTable):
     region = tables.Column()
     bucket_name = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.ObjectStorage
@@ -97,7 +91,6 @@ class VirtualDiskTable(NetBoxTable):
     controller = tables.Column()
     path = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.VirtualDisk
