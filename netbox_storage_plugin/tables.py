@@ -8,7 +8,6 @@ class DiskTable(NetBoxTable):
     interface = tables.Column()
     speed = tables.Column()
     size = tables.Column()
-    actions = tables.ActionsColumn()
 
     class Meta(NetBoxTable.Meta):
         model = models.Disk
