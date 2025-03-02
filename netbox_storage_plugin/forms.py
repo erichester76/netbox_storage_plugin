@@ -20,7 +20,7 @@ class VolumeForm(forms.ModelForm):
 
     class Meta:
         model = Volume
-        fields = ['name', 'type', 'parent', 'associated_object', 'size', 'details', 'description']
+        fields = ['name', 'type', 'parent', 'size', 'details', 'description']
         labels = {
             'name': 'Name',
             'type': 'Type',
