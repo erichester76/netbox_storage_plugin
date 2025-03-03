@@ -135,7 +135,7 @@ class Disk(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('content_type', 'object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     def __str__(self):
         return self.name
