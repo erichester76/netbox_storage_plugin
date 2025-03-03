@@ -1,7 +1,7 @@
 from . import models
 from django.contrib.contenttypes.models import ContentType
 from utilities.forms.fields import ContentTypeChoiceField
-from netbox.forms import NetBoxModelForm
+from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
 from django import forms
 from django.db.models import Q
 
@@ -15,7 +15,7 @@ class DiskForm(NetBoxModelForm):
     associated_object_id = forms.CharField(
         required=False,
         label='Associated Object',
-        help_text='Select an object of the chosen type.'
+        help_text='Associated Object ID'
     )
        
     content_type = ContentTypeChoiceField(
@@ -27,7 +27,7 @@ class DiskForm(NetBoxModelForm):
     parent_object_id = forms.CharField(
         required=False,
         label='Parent Object',
-        help_text='Select an object of the chosen type.'
+        help_text='Parent Object ID.'
     )
     
     class Meta:
@@ -53,6 +53,10 @@ class DiskForm(NetBoxModelForm):
             Q(app_label='virtualization', model='virtualdisk')
         )
 
+class DiskImportForm(NetBoxModelImportForm):
+    class Meta:
+        model = models.DiskSet
+        fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'content_type', 'object_id', 'type', 'raid_level', 'disk_count']
 
 class DiskSetForm(NetBoxModelForm):
     class Meta:
