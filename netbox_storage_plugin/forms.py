@@ -18,18 +18,6 @@ class DiskForm(NetBoxModelForm):
         label='Associated Object',
         help_text='Associated Object ID'
     )
-       
-    content_type = ContentTypeChoiceField(
-        queryset=ContentType.objects.all().order_by('app_label', 'model'),
-        required=False,
-        label='Parent Object Type'
-    )
-    
-    parent_object_id = forms.CharField(
-        required=False,
-        label='Parent Object',
-        help_text='Parent Object ID.'
-    )
     
     class Meta:
         model = models.Disk
