@@ -140,8 +140,8 @@ class Disk(NetBoxModel):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:disk', kwargs={'pk': self.pk})
+    # def get_absolute_url(self):
+    #     return reverse('plugins:netbox_storage_plugin:disk', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
