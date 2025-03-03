@@ -4,6 +4,7 @@ from utilities.forms.fields import ContentTypeChoiceField
 from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
 from django import forms
 from django.db.models import Q
+from django.core.exceptions import ObjectDoesNotExist
 
 class DiskForm(NetBoxModelForm):
     associated_object_type = ContentTypeChoiceField(
@@ -52,6 +53,17 @@ class DiskForm(NetBoxModelForm):
             Q(app_label='virtualization', model='virtualmachine') |
             Q(app_label='virtualization', model='virtualdisk')
         )
+        
+    def clean(self):
+        cleaned_data = super().clean()
+        ct = cleaned_data.get('content_type')
+        obj_id = cleaned_data.get('object_id')
+        if ct and obj_id:
+            try:
+                ct.get_object_for_this_type(pk=obj_id)
+            except ObjectDoesNotExist:
+                raise forms.ValidationError("Invalid related object.")
+        return cleaned_data
 
 class DiskImportForm(NetBoxModelImportForm):
     class Meta:

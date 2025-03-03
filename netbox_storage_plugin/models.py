@@ -4,7 +4,6 @@ from django.contrib.contenttypes.models import ContentType
 from netbox.models import NetBoxModel
 from django.urls import reverse
 
-# Choices definitions (unchanged from original)
 INTERFACE_CHOICES = [
     ('SATA', 'SATA'),
     ('SAS', 'SAS'),
