@@ -1,16 +1,13 @@
 from rest_framework import serializers
 from netbox.api.serializers import NetBoxModelSerializer
-from ..models import (
-    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk, INTERFACE_CHOICES, DISK_SPEED_CHOICES,
-    DISKSET_TYPE_CHOICES, RAID_LEVEL_CHOICES, FS_TYPE_CHOICES, SHARE_PROTOCOL_CHOICES, SAN_PROTOCOL_CHOICES, PROVIDER_CHOICES, FORMAT_CHOICES, PROVISIONING_CHOICES,
-    CONTROLLER_CHOICES
-)
+from ..models import ( 
+    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk,
+    INTERFACE_CHOICES, DISK_SPEED_CHOICES, DISKSET_TYPE_CHOICES, RAID_LEVEL_CHOICES,
+    LOGICAL_DRIVE_CHOICES, FS_TYPE_CHOICES, SHARE_PROTOCOL_CHOICES, SAN_PROTOCOL_CHOICES,
+    PROVIDER_CHOICES, FORMAT_CHOICES, PROVISIONING_CHOICES, CONTROLLER_CHOICES)
 
 # Serializer for Disk model
 class DiskSerializer(NetBoxModelSerializer):
-    """
-    Serializer for Disk model, providing all fields for API interactions.
-    """
     interface = serializers.ChoiceField(choices=INTERFACE_CHOICES)
     speed = serializers.ChoiceField(choices=DISK_SPEED_CHOICES)
 
@@ -20,9 +17,6 @@ class DiskSerializer(NetBoxModelSerializer):
 
 # Serializer for DiskSet model
 class DiskSetSerializer(NetBoxModelSerializer):
-    """
-    Serializer for DiskSet model, providing all fields for API interactions.
-    """
     type = serializers.ChoiceField(choices=DISKSET_TYPE_CHOICES)
     raid_level = serializers.ChoiceField(choices=RAID_LEVEL_CHOICES)
     disk_count = serializers.IntegerField()
@@ -33,10 +27,7 @@ class DiskSetSerializer(NetBoxModelSerializer):
 
 # Serializer for LogicalDrive model
 class LogicalDriveSerializer(NetBoxModelSerializer):
-    """
-    Serializer for LogicalDrive model, providing all fields for API interactions.
-    """
-    type = serializers.ChoiceField(choices=TYPE_CHOICES)
+    type = serializers.ChoiceField(choices=LOGICAL_DRIVE_CHOICES)
     identifier = serializers.CharField()
 
     class Meta:

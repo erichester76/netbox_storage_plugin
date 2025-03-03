@@ -121,6 +121,13 @@ SAN_PROTOCOL_CHOICES = [
     ('fcoe', 'FCoE'),
 ]
 
+LOGICAL_DRIVE_CHOICES = [
+    ('partition', 'Partition'),
+    ('lvm', 'LVM'),
+    ('zvol', 'Zvol'),
+    ('other', 'Other'),
+]
+
 # Models
 class Disk(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk")
@@ -197,7 +204,7 @@ class LogicalDrive(NetBoxModel):
     object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
-    type = models.CharField(max_length=50, choices=[('partition', 'Partition'), ('lvm', 'LVM'), ('other', 'Other')], help_text="The type of logical drive")
+    type = models.CharField(max_length=50, choices=LOGICAL_DRIVE_CHOICES, help_text="The type of logical drive")
     identifier = models.CharField(max_length=100, help_text="The identifier (e.g., sda1, vg_data/lv_home)")
 
     def __str__(self):
