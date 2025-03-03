@@ -35,7 +35,7 @@ class VMDiskListView(generic.ObjectListView):
 
 class DiskEditView(generic.ObjectEditView):
     queryset = models.Disk.objects.all()
-    model_form = forms.DiskForm
+    form = forms.DiskForm
 
 class DiskSetEditView(generic.ObjectEditView):
     queryset = models.DiskSet.objects.all()
