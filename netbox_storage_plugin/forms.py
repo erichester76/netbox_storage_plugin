@@ -26,16 +26,16 @@ class DiskForm(NetBoxModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['content_type'].queryset = ContentType.objects.filter(
-            Q(app_label='netbox_storage_plugin', model='disk') |
-            Q(app_label='netbox_storage_plugin', model='diskset') |
-            Q(app_label='netbox_storage_plugin', model='logicaldisk') |
-            Q(app_label='netbox_storage_plugin', model='filesystem') |
-            Q(app_label='netbox_storage_plugin', model='share') |
-            Q(app_label='netbox_storage_plugin', model='sanvolme') |
-            Q(app_label='netbox_storage_plugin', model='objectstorage') |
-            Q(app_label='netbox_storage_plugin', model='virtualdisk')
-        )
+        # self.fields['content_type'].queryset = ContentType.objects.filter(
+        #     Q(app_label='netbox_storage_plugin', model='disk') |
+        #     Q(app_label='netbox_storage_plugin', model='diskset') |
+        #     Q(app_label='netbox_storage_plugin', model='logicaldisk') |
+        #     Q(app_label='netbox_storage_plugin', model='filesystem') |
+        #     Q(app_label='netbox_storage_plugin', model='share') |
+        #     Q(app_label='netbox_storage_plugin', model='sanvolme') |
+        #     Q(app_label='netbox_storage_plugin', model='objectstorage') |
+        #     Q(app_label='netbox_storage_plugin', model='virtualdisk')
+        # )
         self.fields['associated_object_type'].queryset = ContentType.objects.filter(
             Q(app_label='dcim', model='device') |
             Q(app_label='virtualization', model='cluster') |
