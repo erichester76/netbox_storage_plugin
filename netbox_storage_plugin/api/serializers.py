@@ -5,46 +5,46 @@ from .. import models
 class DiskSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.Disk
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'interface', 'speed')
+        fields = "__all__"
 
 # DiskSet Serializer
 class DiskSetSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.DiskSet
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'type', 'raid_level', 'disk_count')
+        fields = "__all__"
 
 # LogicalDrive Serializer
 class LogicalDriveSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.LogicalDrive
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'type', 'identifier')
+        fields = "__all__"
 
 # Filesystem Serializer
 class FilesystemSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.Filesystem
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'fs_type', 'mount_point')
+        fields = "__all__"
 
 # Share Serializer
 class ShareSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.Share
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'protocol', 'export_path')
+        fields = "__all__"
 
 # SANVolume Serializer
 class SANVolumeSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.SANVolume
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'protocol', 'target', 'lun_id')
+        fields = "__all__"
 
 # ObjectStorage Serializer
 class ObjectStorageSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.ObjectStorage
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'provider', 'region', 'bucket_name')
+        fields = "__all__"
 
 # VMDisk Serializer
 class VMDiskSerializer(NetBoxModelSerializer):
     class Meta:
         model = models.VMDisk
-        fields = ('id', 'name', 'description', 'size', 'parent', 'associated_object', 'format', 'provisioning', 'controller', 'path')
+        fields = "__all__"

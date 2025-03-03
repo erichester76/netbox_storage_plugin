@@ -55,9 +55,8 @@ class DiskForm(NetBoxModelForm):
 
 class DiskImportForm(NetBoxModelImportForm):
     class Meta:
-        model = models.DiskSet
-        fields = ['name', 'description', 'size', 'parent_content_type', 'parent_object_id', 'content_type', 'object_id', 'type', 'raid_level', 'disk_count']
-
+        model = models.Disk
+ 
 class DiskSetForm(NetBoxModelForm):
     class Meta:
         model = models.DiskSet
