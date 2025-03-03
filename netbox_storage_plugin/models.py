@@ -140,8 +140,8 @@ class Disk(NetBoxModel):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('plugins:netbox_storage_plugin:disk', kwargs={'pk': self.pk})
+    def get_absolute_url(self):
+        return reverse('plugins:netbox_storage_plugin:disk', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -173,7 +173,7 @@ class DiskSet(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:diskset', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:diskset', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -235,7 +235,7 @@ class Filesystem(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:filesystem', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:filesystem', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -266,7 +266,7 @@ class Share(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:share', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:share', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -298,7 +298,7 @@ class SANVolume(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:sanvolume', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:sanvolume', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -330,7 +330,7 @@ class ObjectStorage(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:objectstorage', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:objectstorage', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -349,11 +349,9 @@ class VMDisk(NetBoxModel):
     parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_VMDisk')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
     parent = GenericForeignKey('parent_content_type', 'parent_object_id')
-
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
-
     format = models.CharField(max_length=50, choices=FORMAT_CHOICES, help_text="The file format of the virtual disk (e.g., VMDK, QCOW2)")
     provisioning = models.CharField(max_length=50, choices=PROVISIONING_CHOICES, help_text="The provisioning type (e.g., thin, thick)")
     controller = models.CharField(max_length=50, choices=CONTROLLER_CHOICES, help_text="The type of controller the disk is attached to (e.g., IDE, SCSI)")
@@ -363,7 +361,8 @@ class VMDisk(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:vmdisk', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:vmdisk', args=[self.pk])
+
     class Meta:
         ordering = ['name']
         verbose_name = 'Virtual Disk'
