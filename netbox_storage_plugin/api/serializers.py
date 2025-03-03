@@ -1,50 +1,106 @@
+from rest_framework import serializers
 from netbox.api.serializers import NetBoxModelSerializer
-from .. import models 
+from ..models import (
+    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk
+)
 
-# Disk Serializer
+# Serializer for Disk model
 class DiskSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.Disk
-        fields = "__all__"
+    """
+    Serializer for Disk model, providing all fields for API interactions.
+    """
+    interface = serializers.ChoiceField(choices=Disk.INTERFACE_CHOICES)
+    speed = serializers.ChoiceField(choices=Disk.SPEED_CHOICES)
 
-# DiskSet Serializer
+    class Meta:
+        model = Disk
+        fields = '__all__'
+
+# Serializer for DiskSet model
 class DiskSetSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.DiskSet
-        fields = "__all__"
+    """
+    Serializer for DiskSet model, providing all fields for API interactions.
+    """
+    type = serializers.ChoiceField(choices=DiskSet.TYPE_CHOICES)
+    raid_level = serializers.ChoiceField(choices=DiskSet.RAID_LEVEL_CHOICES)
+    disk_count = serializers.IntegerField()
 
-# LogicalDrive Serializer
+    class Meta:
+        model = DiskSet
+        fields = '__all__'
+
+# Serializer for LogicalDrive model
 class LogicalDriveSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.LogicalDrive
-        fields = "__all__"
+    """
+    Serializer for LogicalDrive model, providing all fields for API interactions.
+    """
+    type = serializers.ChoiceField(choices=LogicalDrive.TYPE_CHOICES)
+    identifier = serializers.CharField()
 
-# Filesystem Serializer
+    class Meta:
+        model = LogicalDrive
+        fields = '__all__'
+
+# Serializer for Filesystem model
 class FilesystemSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.Filesystem
-        fields = "__all__"
+    """
+    Serializer for Filesystem model, providing all fields for API interactions.
+    """
+    fs_type = serializers.ChoiceField(choices=Filesystem.FS_TYPE_CHOICES)
+    mount_point = serializers.CharField()
 
-# Share Serializer
+    class Meta:
+        model = Filesystem
+        fields = '__all__'
+
+# Serializer for Share model
 class ShareSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.Share
-        fields = "__all__"
+    """
+    Serializer for Share model, providing all fields for API interactions.
+    """
+    protocol = serializers.ChoiceField(choices=Share.PROTOCOL_CHOICES)
+    export_path = serializers.CharField()
 
-# SANVolume Serializer
+    class Meta:
+        model = Share
+        fields = '__all__'
+
+# Serializer for SANVolume model
 class SANVolumeSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.SANVolume
-        fields = "__all__"
+    """
+    Serializer for SANVolume model, providing all fields for API interactions.
+    """
+    protocol = serializers.ChoiceField(choices=SANVolume.PROTOCOL_CHOICES)
+    target = serializers.CharField()
+    lun_id = serializers.IntegerField()
 
-# ObjectStorage Serializer
+    class Meta:
+        model = SANVolume
+        fields = '__all__'
+
+# Serializer for ObjectStorage model
 class ObjectStorageSerializer(NetBoxModelSerializer):
-    class Meta:
-        model = models.ObjectStorage
-        fields = "__all__"
+    """
+    Serializer for ObjectStorage model, providing all fields for API interactions.
+    """
+    provider = serializers.ChoiceField(choices=ObjectStorage.PROVIDER_CHOICES)
+    region = serializers.CharField()
+    bucket_name = serializers.CharField()
 
-# VMDisk Serializer
-class VMDiskSerializer(NetBoxModelSerializer):
     class Meta:
-        model = models.VMDisk
-        fields = "__all__"
+        model = ObjectStorage
+        fields = '__all__'
+
+# Serializer for VMDisk model
+class VMDiskSerializer(NetBoxModelSerializer):
+    """
+    Serializer for VMDisk model, providing all fields for API interactions.
+    """
+    format = serializers.ChoiceField(choices=VMDisk.FORMAT_CHOICES)
+    provisioning = serializers.ChoiceField(choices=VMDisk.PROVISIONING_CHOICES)
+    controller = serializers.ChoiceField(choices=VMDisk.CONTROLLER_CHOICES)
+    path = serializers.CharField()
+
+    class Meta:
+        model = VMDisk
+        fields = '__all__'
