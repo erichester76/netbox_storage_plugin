@@ -12,7 +12,7 @@ class DiskForm(NetBoxModelForm):
         label='Associated Object Type'
     )
     
-    associated_object = forms.CharField(
+    associated_object_id = forms.CharField(
         required=False,
         label='Associated Object',
         help_text='Select an object of the chosen type.'
@@ -24,7 +24,7 @@ class DiskForm(NetBoxModelForm):
         label='Parent Object Type'
     )
     
-    parent = forms.CharField(
+    parent_object_id = forms.CharField(
         required=False,
         label='Parent Object',
         help_text='Select an object of the chosen type.'
