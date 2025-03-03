@@ -11,13 +11,10 @@ class DiskForm(NetBoxModelForm):
         required=False,
         label='Associated Object Type'
     )
-    
     associated_object_id = forms.CharField(
         required=False,
         label='Associated Object',
-        help_text='Associated Object ID'
     )
-    
     class Meta:
         model = models.Disk
         fields = ['name', 'description', 'size', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'interface', 'speed']

@@ -1,7 +1,9 @@
 from rest_framework import serializers
 from netbox.api.serializers import NetBoxModelSerializer
 from ..models import (
-    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk
+    Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk, INTERFACE_CHOICES, DISK_SPEED_CHOICES,
+    DISKSET_TYPE_CHOICES, RAID_LEVEL_CHOICES, FS_TYPE_CHOICES, SHARE_PROTOCOL_CHOICES, SAN_PROTOCOL_CHOICES, PROVIDER_CHOICES, FORMAT_CHOICES, PROVISIONING_CHOICES,
+    CONTROLLER_CHOICES
 )
 
 # Serializer for Disk model
@@ -9,8 +11,8 @@ class DiskSerializer(NetBoxModelSerializer):
     """
     Serializer for Disk model, providing all fields for API interactions.
     """
-    interface = serializers.ChoiceField(choices=Disk.INTERFACE_CHOICES)
-    speed = serializers.ChoiceField(choices=Disk.SPEED_CHOICES)
+    interface = serializers.ChoiceField(choices=INTERFACE_CHOICES)
+    speed = serializers.ChoiceField(choices=DISK_SPEED_CHOICES)
 
     class Meta:
         model = Disk
@@ -21,8 +23,8 @@ class DiskSetSerializer(NetBoxModelSerializer):
     """
     Serializer for DiskSet model, providing all fields for API interactions.
     """
-    type = serializers.ChoiceField(choices=DiskSet.TYPE_CHOICES)
-    raid_level = serializers.ChoiceField(choices=DiskSet.RAID_LEVEL_CHOICES)
+    type = serializers.ChoiceField(choices=DISKSET_TYPE_CHOICES)
+    raid_level = serializers.ChoiceField(choices=RAID_LEVEL_CHOICES)
     disk_count = serializers.IntegerField()
 
     class Meta:
@@ -34,7 +36,7 @@ class LogicalDriveSerializer(NetBoxModelSerializer):
     """
     Serializer for LogicalDrive model, providing all fields for API interactions.
     """
-    type = serializers.ChoiceField(choices=LogicalDrive.TYPE_CHOICES)
+    type = serializers.ChoiceField(choices=TYPE_CHOICES)
     identifier = serializers.CharField()
 
     class Meta:
@@ -46,7 +48,7 @@ class FilesystemSerializer(NetBoxModelSerializer):
     """
     Serializer for Filesystem model, providing all fields for API interactions.
     """
-    fs_type = serializers.ChoiceField(choices=Filesystem.FS_TYPE_CHOICES)
+    fs_type = serializers.ChoiceField(choices=FS_TYPE_CHOICES)
     mount_point = serializers.CharField()
 
     class Meta:
@@ -58,7 +60,7 @@ class ShareSerializer(NetBoxModelSerializer):
     """
     Serializer for Share model, providing all fields for API interactions.
     """
-    protocol = serializers.ChoiceField(choices=Share.PROTOCOL_CHOICES)
+    protocol = serializers.ChoiceField(choices=SHARE_PROTOCOL_CHOICES)
     export_path = serializers.CharField()
 
     class Meta:
@@ -70,7 +72,7 @@ class SANVolumeSerializer(NetBoxModelSerializer):
     """
     Serializer for SANVolume model, providing all fields for API interactions.
     """
-    protocol = serializers.ChoiceField(choices=SANVolume.PROTOCOL_CHOICES)
+    protocol = serializers.ChoiceField(choices=SAN_PROTOCOL_CHOICES)
     target = serializers.CharField()
     lun_id = serializers.IntegerField()
 
@@ -83,7 +85,7 @@ class ObjectStorageSerializer(NetBoxModelSerializer):
     """
     Serializer for ObjectStorage model, providing all fields for API interactions.
     """
-    provider = serializers.ChoiceField(choices=ObjectStorage.PROVIDER_CHOICES)
+    provider = serializers.ChoiceField(choices=PROVIDER_CHOICES)
     region = serializers.CharField()
     bucket_name = serializers.CharField()
 
@@ -96,9 +98,9 @@ class VMDiskSerializer(NetBoxModelSerializer):
     """
     Serializer for VMDisk model, providing all fields for API interactions.
     """
-    format = serializers.ChoiceField(choices=VMDisk.FORMAT_CHOICES)
-    provisioning = serializers.ChoiceField(choices=VMDisk.PROVISIONING_CHOICES)
-    controller = serializers.ChoiceField(choices=VMDisk.CONTROLLER_CHOICES)
+    format = serializers.ChoiceField(choices=FORMAT_CHOICES)
+    provisioning = serializers.ChoiceField(choices=PROVISIONING_CHOICES)
+    controller = serializers.ChoiceField(choices=CONTROLLER_CHOICES)
     path = serializers.CharField()
 
     class Meta:
