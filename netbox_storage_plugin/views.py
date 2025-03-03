@@ -35,35 +35,35 @@ class VMDiskListView(generic.ObjectListView):
 
 class DiskEditView(generic.ObjectEditView):
     queryset = models.Disk.objects.all()
-    form = forms.DiskForm
+    model_form = forms.DiskForm
 
 class DiskSetEditView(generic.ObjectEditView):
     queryset = models.DiskSet.objects.all()
-    form = forms.DiskSetForm
+    model_form = forms.DiskSetForm
 
 class LogicalDriveEditView(generic.ObjectEditView):
     queryset = models.LogicalDrive.objects.all()
-    form = forms.LogicalDriveForm
+    model_form = forms.LogicalDriveForm
 
 class FilesystemEditView(generic.ObjectEditView):
     queryset = models.Filesystem.objects.all()
-    form = forms.FilesystemForm
+    model_form = forms.FilesystemForm
 
 class ShareEditView(generic.ObjectEditView):
     queryset = models.Share.objects.all()
-    form = forms.ShareForm
+    model_form = forms.ShareForm
 
 class SANVolumeEditView(generic.ObjectEditView):
     queryset = models.SANVolume.objects.all()
-    form = forms.SANVolumeForm
+    model_form = forms.SANVolumeForm
 
 class ObjectStorageEditView(generic.ObjectEditView):
     queryset = models.ObjectStorage.objects.all()
-    form = forms.ObjectStorageForm
+    model_form = forms.ObjectStorageForm
 
 class VMDiskEditView(generic.ObjectEditView):
     queryset = models.VMDisk.objects.all()
-    form = forms.VMDiskForm
+    model_form = forms.VMDiskForm
     
     
 # Disk Views
