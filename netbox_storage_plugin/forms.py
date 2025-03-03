@@ -43,26 +43,6 @@ class DiskForm(NetBoxModelForm):
             Q(app_label='virtualization', model='virtualdisk')
         )
         
-    def clean(self):
-        cleaned_data = super().clean()
-        ct = cleaned_data.get('associated_object_type')
-        obj_id = cleaned_data.get('associated_object_id')
-        if ct and obj_id:
-            try:
-                ct.get_object_for_this_type(pk=obj_id)
-            except ObjectDoesNotExist:
-                raise forms.ValidationError("Invalid related object.")
-        return cleaned_data
-    
-    def save(self, commit=True):
-        try:
-            instance = super().save(commit=False)
-            if commit:
-                instance.save()
-            return instance
-        except IntegrityError as e:
-            raise forms.ValidationError(f"Database integrity error: {e}")
-
 class DiskImportForm(NetBoxModelImportForm):
     class Meta:
         model = models.Disk
