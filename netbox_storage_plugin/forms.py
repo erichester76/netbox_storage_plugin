@@ -4,8 +4,6 @@ from utilities.forms.fields import ContentTypeChoiceField
 from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
 from django import forms
 from django.db.models import Q
-from django.core.exceptions import ObjectDoesNotExist
-from django.db import IntegrityError
 
 class DiskForm(NetBoxModelForm):
     associated_object_type = ContentTypeChoiceField(
