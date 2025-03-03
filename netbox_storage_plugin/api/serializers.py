@@ -8,6 +8,7 @@ from ..models import (
 
 # Serializer for Disk model
 class DiskSerializer(NetBoxModelSerializer):
+    
     interface = serializers.ChoiceField(choices=INTERFACE_CHOICES)
     speed = serializers.ChoiceField(choices=DISK_SPEED_CHOICES)
 
@@ -17,6 +18,7 @@ class DiskSerializer(NetBoxModelSerializer):
 
 # Serializer for DiskSet model
 class DiskSetSerializer(NetBoxModelSerializer):
+    
     type = serializers.ChoiceField(choices=DISKSET_TYPE_CHOICES)
     raid_level = serializers.ChoiceField(choices=RAID_LEVEL_CHOICES)
     disk_count = serializers.IntegerField()
@@ -27,6 +29,7 @@ class DiskSetSerializer(NetBoxModelSerializer):
 
 # Serializer for LogicalDrive model
 class LogicalDriveSerializer(NetBoxModelSerializer):
+    
     type = serializers.ChoiceField(choices=LOGICAL_DRIVE_CHOICES)
     identifier = serializers.CharField()
 
@@ -36,9 +39,7 @@ class LogicalDriveSerializer(NetBoxModelSerializer):
 
 # Serializer for Filesystem model
 class FilesystemSerializer(NetBoxModelSerializer):
-    """
-    Serializer for Filesystem model, providing all fields for API interactions.
-    """
+
     fs_type = serializers.ChoiceField(choices=FS_TYPE_CHOICES)
     mount_point = serializers.CharField()
 
@@ -48,9 +49,7 @@ class FilesystemSerializer(NetBoxModelSerializer):
 
 # Serializer for Share model
 class ShareSerializer(NetBoxModelSerializer):
-    """
-    Serializer for Share model, providing all fields for API interactions.
-    """
+
     protocol = serializers.ChoiceField(choices=SHARE_PROTOCOL_CHOICES)
     export_path = serializers.CharField()
 
@@ -60,9 +59,7 @@ class ShareSerializer(NetBoxModelSerializer):
 
 # Serializer for SANVolume model
 class SANVolumeSerializer(NetBoxModelSerializer):
-    """
-    Serializer for SANVolume model, providing all fields for API interactions.
-    """
+ 
     protocol = serializers.ChoiceField(choices=SAN_PROTOCOL_CHOICES)
     target = serializers.CharField()
     lun_id = serializers.IntegerField()
@@ -73,9 +70,7 @@ class SANVolumeSerializer(NetBoxModelSerializer):
 
 # Serializer for ObjectStorage model
 class ObjectStorageSerializer(NetBoxModelSerializer):
-    """
-    Serializer for ObjectStorage model, providing all fields for API interactions.
-    """
+
     provider = serializers.ChoiceField(choices=PROVIDER_CHOICES)
     region = serializers.CharField()
     bucket_name = serializers.CharField()
@@ -86,9 +81,6 @@ class ObjectStorageSerializer(NetBoxModelSerializer):
 
 # Serializer for VMDisk model
 class VMDiskSerializer(NetBoxModelSerializer):
-    """
-    Serializer for VMDisk model, providing all fields for API interactions.
-    """
     format = serializers.ChoiceField(choices=FORMAT_CHOICES)
     provisioning = serializers.ChoiceField(choices=PROVISIONING_CHOICES)
     controller = serializers.ChoiceField(choices=CONTROLLER_CHOICES)
