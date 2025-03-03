@@ -45,8 +45,8 @@ class DiskForm(NetBoxModelForm):
         
     def clean(self):
         cleaned_data = super().clean()
-        ct = cleaned_data.get('content_type')
-        obj_id = cleaned_data.get('object_id')
+        ct = cleaned_data.get('associated_object_type')
+        obj_id = cleaned_data.get('associated_object_id')
         if ct and obj_id:
             try:
                 ct.get_object_for_this_type(pk=obj_id)
@@ -61,8 +61,7 @@ class DiskForm(NetBoxModelForm):
                 instance.save()
             return instance
         except IntegrityError as e:
-            logger.error(f"Database integrity error: {e}")
-            raise
+            raise forms.ValidationError(f"Database integrity error: {e}")
 
 class DiskImportForm(NetBoxModelImportForm):
     class Meta:
