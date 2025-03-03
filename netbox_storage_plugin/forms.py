@@ -5,6 +5,7 @@ from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
 from django import forms
 from django.db.models import Q
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import IntegrityError
 
 class DiskForm(NetBoxModelForm):
     associated_object_type = ContentTypeChoiceField(
@@ -52,6 +53,16 @@ class DiskForm(NetBoxModelForm):
             except ObjectDoesNotExist:
                 raise forms.ValidationError("Invalid related object.")
         return cleaned_data
+    
+    def save(self, commit=True):
+        try:
+            instance = super().save(commit=False)
+            if commit:
+                instance.save()
+            return instance
+        except IntegrityError as e:
+            logger.error(f"Database integrity error: {e}")
+            raise
 
 class DiskImportForm(NetBoxModelImportForm):
     class Meta:
