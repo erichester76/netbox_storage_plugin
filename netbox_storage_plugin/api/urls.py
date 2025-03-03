@@ -1,8 +1,7 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
+from netbox.api.routers import NetBoxRouter
 from . import views
 
-router = DefaultRouter()
+router = NetBoxRouter()
 router.register(r'disks', views.DiskViewSet)
 router.register(r'disk-sets', views.DiskSetViewSet)
 router.register(r'logical-drives', views.LogicalDriveViewSet)
