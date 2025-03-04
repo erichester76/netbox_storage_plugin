@@ -32,6 +32,7 @@ class DiskTable(NetBoxTable):
     size = tables.Column()
     interface = tables.Column()
     speed = tables.Column()
+    associated_object = tables.Column(linkify=True)
 
     class Meta(NetBoxTable.Meta):
         model = Disk
