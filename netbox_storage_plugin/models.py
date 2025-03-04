@@ -124,7 +124,7 @@ SAN_PROTOCOL_CHOICES = [
 LOGICAL_DRIVE_CHOICES = [
     ('partition', 'Partition'),
     ('lvm', 'LVM'),
-    ('zvol', 'Zvol'),
+    ('zpool', 'Zpool'),
     ('other', 'Other'),
 ]
 
