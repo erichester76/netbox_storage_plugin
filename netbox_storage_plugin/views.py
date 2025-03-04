@@ -260,7 +260,7 @@ class DeviceDisksView(generic.ObjectView):
     Display a tab on the Device detail page listing associated Disks.
     """
     queryset = Device.objects.all()
-    template_name = 'storage/device_disks_tab.html'
+    template_name = 'netbox_storage_plugin/device_disks_tab.html'
 
     tab = ViewTab(
         label='Disks',
