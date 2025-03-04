@@ -74,7 +74,6 @@ class DiskView(generic.ObjectView):
     queryset = models.Disk.objects.all()
     
 class DiskImportView(generic.BulkImportView):
-    model = models.Disk
     queryset = models.Disk.objects.all()
     model_form = forms.DiskImportForm
 
