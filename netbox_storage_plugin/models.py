@@ -18,7 +18,7 @@ INTERFACE_CHOICES = [
 
 DISKSET_TYPE_CHOICES = [
     ('RAID', 'RAID'),
-    ("zPool", "zPool"),
+    ("vdev", "vdev"),
     ('JBOD', 'JBOD'),
     ('Span', 'Span'),
     ('Stripe', 'Stripe'),

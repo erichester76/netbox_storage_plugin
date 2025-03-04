@@ -13,10 +13,11 @@ def format_size(value):
     
     # Define the units and their conversion factors (in bytes)
     units = [
-        (1e12, 'TB'),  # Terabytes
-        (1e9, 'GB'),   # Gigabytes
-        (1e6, 'MB'),   # Megabytes
-        (1e3, 'KB'),   # Kilobytes (optional, for smaller values)
+        (1e15, 'PB')
+        (1e12, 'TB'),
+        (1e9, 'GB'), 
+        (1e6, 'MB'), 
+        (1e3, 'KB'), 
     ]
     
     for threshold, unit in units:
@@ -24,7 +25,7 @@ def format_size(value):
             formatted_value = value / threshold
             return f"{formatted_value:.2f} {unit}"
     
-    return f"{value} B"  # Fallback for very small values in bytes
+    return f"{value} B" 
 
 class DiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
@@ -34,9 +35,8 @@ class DiskTable(NetBoxTable):
 
     class Meta(NetBoxTable.Meta):
         model = Disk
-        fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed')
-        default_columns = ('name', 'description', 'part_number', 'size', 'interface', 'speed')
-
+        fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed', 'associated_object')
+        default_columns = ('name', 'description', 'part_number', 'size', 'interface', 'speed', 'associated_object')
 
     def render_size(self, value):
         return format_size(value)
