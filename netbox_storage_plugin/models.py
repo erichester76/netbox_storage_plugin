@@ -147,9 +147,6 @@ class Disk(NetBoxModel):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:disk-detail', args=[self.pk])
-
     class Meta:
         ordering = ['name']
         verbose_name = 'Disk'
@@ -208,7 +205,7 @@ class LogicalDrive(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:logicaldrive', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:logicaldrive_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
@@ -239,7 +236,7 @@ class Filesystem(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:filesystem', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:filesystem_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
@@ -270,7 +267,7 @@ class Share(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:share', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:share_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
@@ -302,7 +299,7 @@ class SANVolume(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:sanvolume', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:sanvolume_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
@@ -334,7 +331,7 @@ class ObjectStorage(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:objectstorage', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:objectstorage_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
@@ -365,7 +362,7 @@ class VMDisk(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:vmdisk', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:vmdisk_detail', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
