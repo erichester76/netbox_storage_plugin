@@ -1,0 +1,15 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Associated Disks</h3>
+            {% if disks_table %}
+                {% render_table disks_table 'inc/table.html' %}
+            {% else %}
+                <p>No disks associated with this device.</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

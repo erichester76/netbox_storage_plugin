@@ -1,5 +1,9 @@
 from netbox.views import generic
 from . import models, forms, tables
+from django.contrib.contenttypes.models import ContentType
+from utilities.views import register_model_view, ViewTab
+from dcim.models import Device
+
 
 class DiskListView(generic.ObjectListView):
     queryset = models.Disk.objects.all()
@@ -249,3 +253,36 @@ class VMDiskBulkDeleteView(generic.BulkDeleteView):
 class VMDiskChangeLogView(generic.ObjectChangeLogView):
     queryset = models.VMDisk.objects.all()
  
+ 
+@register_model_view(Device, 'disks', path='disks')
+class DeviceDisksView(generic.ObjectView):
+    """
+    Display a tab on the Device detail page listing associated Disks.
+    """
+    queryset = Device.objects.all()
+    template_name = 'storage/device_disks_tab.html'
+
+    tab = ViewTab(
+        label='Disks',
+        badge=lambda obj: models.Disk.objects.filter(
+            associated_object_type=ContentType.objects.get_for_model(Device),
+            associated_object_id=obj.pk
+        ).count() or 0,
+    )
+
+    def get_extra_context(self, request, instance):
+        if not instance:
+            return {'disks_table': None}
+        try:
+            # Filter Disks associated with this Device via GenericForeignKey
+            disks = models.Disk.objects.filter(
+                associated_object_type=ContentType.objects.get_for_model(Device),
+                associated_object_id=instance.pk
+            )
+            disks_table = tables.DiskTable(disks)
+            disks_table.configure(request)
+        except Exception as e:
+            disks_table = None
+        return {
+            'disks_table': disks_table,
+        }
