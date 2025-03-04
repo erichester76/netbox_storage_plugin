@@ -8,15 +8,15 @@ from django.db.models import Q
 
 
 class DiskForm(NetBoxModelForm):
-    associated_object_type = ContentTypeChoiceField(
-        queryset=ContentType.objects.all().order_by('app_label', 'model'),
-        required=False,
-        label='Associated Object Type'
-    )
-    associated_object_id = forms.CharField(
-        required=False,
-        label='Associated Object',
-    )
+    # associated_object_type = ContentTypeChoiceField(
+    #     queryset=ContentType.objects.all().order_by('app_label', 'model'),
+    #     required=False,
+    #     label='Associated Object Type'
+    # )
+    # associated_object_id = forms.CharField(
+    #     required=False,
+    #     label='Associated Object',
+    # )
     class Meta:
         model = models.Disk
         fields = ['name', 'description', 'size', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'interface', 'speed']
