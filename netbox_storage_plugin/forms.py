@@ -5,6 +5,8 @@ from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
 from django import forms
 from django.db.models import Q
 
+
+
 class DiskForm(NetBoxModelForm):
     associated_object_type = ContentTypeChoiceField(
         queryset=ContentType.objects.all().order_by('app_label', 'model'),

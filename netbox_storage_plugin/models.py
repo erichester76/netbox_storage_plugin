@@ -155,9 +155,6 @@ class Disk(NetBoxModel):
             ('netbox_storage_plugin.view_disk', 'Can view disk'),
             ('netbox_storage_plugin.manage_disk', 'Can manage disk'),
         ]
-        
-    def get_absolute_url(self):
-        return reverse('storage:disk_detail', kwargs={'pk': self.pk})
 
 class DiskSet(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk set")
