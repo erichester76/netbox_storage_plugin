@@ -11,9 +11,9 @@ def format_size(value):
     if value is None or value == 0:
         return "N/A"
     
-    # Define the units and their conversion factors (in bytes)
     units = [
-        (1e15, 'PB')
+        (1e18, 'EB'),
+        (1e15, 'PB'),
         (1e12, 'TB'),
         (1e9, 'GB'), 
         (1e6, 'MB'), 
