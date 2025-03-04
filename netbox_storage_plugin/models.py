@@ -148,7 +148,7 @@ class Disk(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:disk', args=[self.pk])
+        return reverse('plugins:netbox_storage_plugin:disk-detail', args=[self.pk])
 
     class Meta:
         ordering = ['name']
@@ -178,9 +178,6 @@ class DiskSet(NetBoxModel):
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse('plugins:netbox_storage_plugin:diskset', args=[self.pk])
 
     class Meta:
         ordering = ['name']
