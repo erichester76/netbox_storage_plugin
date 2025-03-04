@@ -4,6 +4,28 @@ from .models import (
     Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk
 )
 
+def format_size(value):
+    """
+    Convert a byte value to a human-readable format (MB, GB, TB, PB).
+    """
+    if value is None or value == 0:
+        return "N/A"
+    
+    # Define the units and their conversion factors (in bytes)
+    units = [
+        (1e12, 'TB'),  # Terabytes
+        (1e9, 'GB'),   # Gigabytes
+        (1e6, 'MB'),   # Megabytes
+        (1e3, 'KB'),   # Kilobytes (optional, for smaller values)
+    ]
+    
+    for threshold, unit in units:
+        if value >= threshold:
+            formatted_value = value / threshold
+            return f"{formatted_value:.2f} {unit}"
+    
+    return f"{value} B"  # Fallback for very small values in bytes
+
 class DiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -13,7 +35,11 @@ class DiskTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = Disk
         fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed')
-        default_columns = ('name', 'size', 'interface', 'speed')
+        default_columns = ('name', 'description', 'part_number', 'size', 'interface', 'speed')
+
+
+    def render_size(self, value):
+        return format_size(value)
 
 class DiskSetTable(NetBoxTable):
     name = tables.Column(linkify=True)
