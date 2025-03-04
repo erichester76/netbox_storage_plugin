@@ -7,7 +7,7 @@ from ..models import (
     PROVIDER_CHOICES, FORMAT_CHOICES, PROVISIONING_CHOICES, CONTROLLER_CHOICES)
 
 # Serializer for Disk model
-class DiskSerializer(NetBoxModelSerializer):
+class DiskSerializer(serializers.ModelSerializer):
     
     interface = serializers.ChoiceField(choices=INTERFACE_CHOICES)
     speed = serializers.ChoiceField(choices=DISK_SPEED_CHOICES)
