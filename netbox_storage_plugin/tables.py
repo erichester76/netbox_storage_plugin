@@ -11,6 +11,7 @@ def format_size(value):
     if value is None or value == 0:
         return "N/A"
     
+    # Define the units and their conversion factors (in bytes)
     units = [
         (1e18, 'EB'),
         (1e15, 'PB'),
@@ -27,19 +28,46 @@ def format_size(value):
     
     return f"{value} B" 
 
+def get_associated_object_display(obj):
+    """
+    Resolve and format the associated object from the GenericForeignKey for display.
+    """
+    if not hasattr(obj, 'associated_object') or not obj.associated_object:
+        return "N/A"
+    try:
+        associated_object = obj.associated_object
+        # Attempt to get a display name or string representation
+        display_name = str(associated_object) or associated_object._meta.model_name
+        # Add a link if the object has get_absolute_url
+        if hasattr(associated_object, 'get_absolute_url'):
+            return f'<a href="{associated_object.get_absolute_url}">{display_name}</a>'
+        return display_name
+    except Exception as e:
+        return "Error resolving object"
+
 class DiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
     interface = tables.Column()
     speed = tables.Column()
-
+    associated_object = tables.Column(
+        verbose_name="Associated Object",
+        accessor="associated_object",
+        orderable=False
+    )
     class Meta(NetBoxTable.Meta):
         model = Disk
-        fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed')
-        default_columns = ('name', 'description', 'part_number', 'size', 'interface', 'speed')
+        fields = ('pk', 'name', 'description', 'part_number', 'serial_number', 'wwn', 'firmware_version', 'size', 'interface', 'speed', 'associated_object')
+        default_columns = ('associated_object', 'name', 'description', 'part_number', 'size', 'interface', 'speed')
 
     def render_size(self, value):
         return format_size(value)
+
+    def render_associated_object(self, value, record):
+        """
+        Render the associated object column, resolving the GenericForeignKey.
+        """
+        return get_associated_object_display(record)
 
 class DiskSetTable(NetBoxTable):
     name = tables.Column(linkify=True)
@@ -53,6 +81,9 @@ class DiskSetTable(NetBoxTable):
         fields = ('pk', 'name', 'size', 'type', 'raid_level', 'disk_count', 'description')
         default_columns = ('name', 'size', 'type', 'raid_level', 'disk_count')
 
+    def render_size(self, value):
+        return format_size(value)
+
 class LogicalDriveTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -63,6 +94,9 @@ class LogicalDriveTable(NetBoxTable):
         model = LogicalDrive
         fields = ('pk', 'name', 'size', 'type', 'identifier', 'description')
         default_columns = ('name', 'size', 'type', 'identifier')
+
+    def render_size(self, value):
+        return format_size(value)
 
 class FilesystemTable(NetBoxTable):
     name = tables.Column(linkify=True)
@@ -75,6 +109,9 @@ class FilesystemTable(NetBoxTable):
         fields = ('pk', 'name', 'size', 'fs_type', 'mount_point', 'description')
         default_columns = ('name', 'size', 'fs_type', 'mount_point')
 
+    def render_size(self, value):
+        return format_size(value)
+
 class ShareTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -85,6 +122,9 @@ class ShareTable(NetBoxTable):
         model = Share
         fields = ('pk', 'name', 'size', 'protocol', 'export_path', 'description')
         default_columns = ('name', 'size', 'protocol', 'export_path')
+
+    def render_size(self, value):
+        return format_size(value)
 
 class SANVolumeTable(NetBoxTable):
     name = tables.Column(linkify=True)
@@ -98,6 +138,9 @@ class SANVolumeTable(NetBoxTable):
         fields = ('pk', 'name', 'size', 'protocol', 'target', 'lun_id', 'description')
         default_columns = ('name', 'size', 'protocol', 'target', 'lun_id')
 
+    def render_size(self, value):
+        return format_size(value)
+
 class ObjectStorageTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -110,6 +153,9 @@ class ObjectStorageTable(NetBoxTable):
         fields = ('pk', 'name', 'size', 'provider', 'region', 'bucket_name', 'description')
         default_columns = ('name', 'size', 'provider', 'region', 'bucket_name')
 
+    def render_size(self, value):
+        return format_size(value)
+    
 class VMDiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -121,3 +167,6 @@ class VMDiskTable(NetBoxTable):
         model = VMDisk
         fields = ('pk', 'name', 'size', 'format', 'provisioning', 'controller', 'path', 'description')
         default_columns = ('name', 'size', 'format', 'provisioning', 'controller')
+    
+    def render_size(self, value):
+        return format_size(value)
