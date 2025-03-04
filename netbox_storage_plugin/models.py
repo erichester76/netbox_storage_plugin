@@ -153,7 +153,7 @@ class Disk(NetBoxModel):
         verbose_name_plural = 'Disks'
         
     def get_absolute_url(self):
-        return reverse('storage:disk', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:disk', kwargs={'pk': self.pk})
     
 class DiskSet(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk set")
