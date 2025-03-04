@@ -151,11 +151,7 @@ class Disk(NetBoxModel):
         ordering = ['name']
         verbose_name = 'Disk'
         verbose_name_plural = 'Disks'
-        permissions = [
-            ('netbox_storage_plugin.view_disk', 'Can view disk'),
-            ('netbox_storage_plugin.manage_disk', 'Can manage disk'),
-        ]
-
+    
 class DiskSet(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the disk set")
     description = models.TextField(blank=True, help_text="Additional notes or context about the disk set")
