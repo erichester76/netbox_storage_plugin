@@ -28,23 +28,6 @@ def format_size(value):
     
     return f"{value} B" 
 
-def get_associated_object_display(obj):
-    """
-    Resolve and format the associated object from the GenericForeignKey for display.
-    """
-    if not hasattr(obj, 'associated_object') or not obj.associated_object:
-        return "N/A"
-    try:
-        associated_object = obj.associated_object
-        # Attempt to get a display name or string representation
-        display_name = str(associated_object) or associated_object._meta.model_name
-        # Add a link if the object has get_absolute_url
-        if hasattr(associated_object, 'get_absolute_url'):
-            return f'<a href="{associated_object.get_absolute_url}">{display_name}</a>'
-        return display_name
-    except Exception as e:
-        return "Error resolving object"
-
 class DiskTable(NetBoxTable):
     name = tables.Column(linkify=True)
     size = tables.Column()
@@ -53,7 +36,8 @@ class DiskTable(NetBoxTable):
     associated_object = tables.Column(
         verbose_name="Associated Object",
         accessor="associated_object",
-        orderable=False
+        orderable=False,
+        linkify=True,
     )
     class Meta(NetBoxTable.Meta):
         model = Disk
@@ -62,12 +46,6 @@ class DiskTable(NetBoxTable):
 
     def render_size(self, value):
         return format_size(value)
-
-    # def render_associated_object(self, value, record):
-    #     """
-    #     Render the associated object column, resolving the GenericForeignKey.
-    #     """
-    #     return get_associated_object_display(record)
 
 class DiskSetTable(NetBoxTable):
     name = tables.Column(linkify=True)
