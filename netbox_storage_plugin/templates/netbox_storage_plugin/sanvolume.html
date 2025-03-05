@@ -1,0 +1,60 @@
+{% extends 'generic/object.html' %}
+{% load render_table from django_tables2 %}
+
+{% block title %}{{ object.name }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ object.name }}</h2>
+            <table class="table table-striped">
+                <tbody>
+                    <tr>
+                        <th>Name</th>
+                        <td>{{ object.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ object.description|linebreaks|default:"No description" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Size</th>
+                        <td>{{ object.size|filesizeformat|default:"N/A" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Storage Protocol</th>
+                        <td>{{ object.storage_protocol|default:"N/A" }}</td>
+                    </tr>
+                    <tr>
+                        <th>State</th>
+                        <td>{{ object.state|default:"N/A" }}</td>
+                    </tr>
+                    <tr>
+                        <th>Associated Object</th>
+                        <td>
+                            {% if object.associated_object %}
+                                <a href="{{ object.associated_object.get_absolute_url }}">
+                                    {{ object.associated_object }}
+                                </a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Parent Object</th>
+                        <td>
+                            {% if object.parent_object %}
+                                <a href="{{ object.parent_object.get_absolute_url }}">
+                                    {{ object.parent_object }}
+                                </a>
+                            {% else %}
+                                N/A
+                            {% endif %}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
