@@ -174,7 +174,7 @@ class DiskSet(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     type = models.CharField(max_length=50, choices=DISKSET_TYPE_CHOICES, help_text="The type of disk set (e.g., RAID)")
     raid_level = models.IntegerField(choices=RAID_LEVEL_CHOICES, null=True, blank=True, help_text="The RAID level (e.g., 0, 1, 5)")
@@ -209,7 +209,7 @@ class LogicalDrive(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     type = models.CharField(max_length=50, choices=LOGICAL_DRIVE_CHOICES, help_text="The type of logical drive")
     identifier = models.CharField(max_length=100, help_text="The identifier (e.g., sda1, vg_data/lv_home)")
@@ -241,7 +241,7 @@ class Filesystem(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     fs_type = models.CharField(max_length=50, choices=FS_TYPE_CHOICES, help_text="The type of filesystem (e.g., ext4, xfs, zfs)")
     mount_point = models.CharField(max_length=255, help_text="The mount point (e.g., /mnt/data)")
@@ -273,7 +273,7 @@ class Share(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     protocol = models.CharField(max_length=50, choices=SHARE_PROTOCOL_CHOICES, help_text="The sharing protocol")
     export_path = models.CharField(max_length=255, help_text="The path where the share is exported (e.g., /mnt/share)")
@@ -305,7 +305,7 @@ class SANVolume(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     protocol = models.CharField(max_length=50, choices=SAN_PROTOCOL_CHOICES, help_text="The SAN protocol")
     target = models.CharField(max_length=255, help_text="The target identifier (e.g., IQN for iSCSI)")
@@ -338,7 +338,7 @@ class ObjectStorage(NetBoxModel):
 
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
 
     provider = models.CharField(max_length=100, choices=PROVIDER_CHOICES, help_text="The cloud provider (e.g., AWS, Azure, Google Cloud)")
     region = models.CharField(max_length=100, help_text="The storage region (e.g., us-east-1)")
@@ -370,7 +370,7 @@ class VMDisk(NetBoxModel):
     parent = GenericForeignKey('parent_object_type', 'parent_object_id')
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
-    associated_object = GenericForeignKey('asscoiated_object_type', 'associated_object_id')
+    associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
     format = models.CharField(max_length=50, choices=FORMAT_CHOICES, help_text="The file format of the virtual disk (e.g., VMDK, QCOW2)")
     provisioning = models.CharField(max_length=50, choices=PROVISIONING_CHOICES, help_text="The provisioning type (e.g., thin, thick)")
     controller = models.CharField(max_length=50, choices=CONTROLLER_CHOICES, help_text="The type of controller the disk is attached to (e.g., IDE, SCSI)")
