@@ -34,12 +34,12 @@ class ObjectStorageViewSet(NetBoxModelViewSet):
     serializer_class = ObjectStorageSerializer
     filterset_class = ObjectStorageFilterSet
 
-class SanVolumeViewSet(NetBoxModelViewSet):
+class SANVolumeViewSet(NetBoxModelViewSet):
     queryset = SANVolume.objects.all()
     serializer_class = SANVolumeSerializer
     filterset_class = SANVolumeFilterSet
 
-class VirtualDiskViewSet(NetBoxModelViewSet):
+class VMDiskViewSet(NetBoxModelViewSet):
     queryset = VMDisk.objects.all()
     serializer_class = VMDiskSerializer
     filterset_class = VMDiskFilterSet
