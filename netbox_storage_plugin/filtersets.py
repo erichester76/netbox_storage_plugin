@@ -100,4 +100,4 @@ class VMDiskFilterSet(NetBoxModelFilterSet):
 
     class Meta:
         model = VMDisk
-        fields = ['name', 'description', 'size', 'type', 'vm_id']
+        fields = ['name', 'description', 'size', 'provisioning', 'controller', 'format']
