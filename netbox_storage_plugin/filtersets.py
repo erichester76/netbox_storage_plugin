@@ -70,13 +70,14 @@ class ShareFilterSet(NetBoxModelFilterSet):
 class SANVolumeFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
-    lun = NumberFilter(lookup_expr='exact')
+    lun_id = NumberFilter(lookup_expr='exact')
+    target = CharFilter(lookup_expr='exact')
     size = NumberFilter(lookup_expr='exact')
     protocol = ChoiceFilter(choices=SAN_PROTOCOL_CHOICES)  
 
     class Meta:
         model = SANVolume
-        fields = ['name', 'description', 'lun', 'size', 'protocol']
+        fields = ['name', 'description', 'lun_id', 'target', 'size', 'protocol']
 
 class ObjectStorageFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
