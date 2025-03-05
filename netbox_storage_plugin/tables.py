@@ -69,7 +69,7 @@ class DiskSetTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = DiskSet
         fields = ('pk', 'name', 'size', 'type', 'raid_level', 'disk_count', 'description', 'parent_object', 'associated_object')
-        default_columns = ('name', 'size', 'type', 'raid_level', 'disk_count', 'parent_object', 'associated_object')
+        default_columns = ('associated_object', 'name', 'size', 'type', 'raid_level', 'disk_count', 'parent_object')
 
     def render_size(self, value):
         return format_size(value)
@@ -115,7 +115,7 @@ class FilesystemTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = Filesystem
         fields = ('pk', 'name', 'size', 'fs_type', 'mount_point', 'description', 'parent_object', 'associated_object')
-        default_columns = ('name', 'size', 'fs_type', 'mount_point', 'parent_object', 'associated_object')
+        default_columns = ('associated_object', 'name', 'size', 'fs_type', 'mount_point', 'parent_object')
 
     def render_size(self, value):
         return format_size(value)
