@@ -1,43 +1,45 @@
+# storage/api/views.py
 from netbox.api.viewsets import NetBoxModelViewSet
-from . import serializers 
-from .. import models 
+from ..models import Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk
+from .serializers import DiskSerializer, DiskSetSerializer, LogicalDriveSerializer, FilesystemSerializer, ShareSerializer, SANVolumeSerializer, ObjectStorageSerializer, VMDiskSerializer
+from ..filtersets import DiskFilterSet, DiskSetFilterSet, LogicalDriveFilterSet, FilesystemFilterSet, ShareFilterSet, SANVolumeFilterSet, ObjectStorageFilterSet, VMDiskFilterSet
 
-# Disk ViewSet
 class DiskViewSet(NetBoxModelViewSet):
-    queryset = models.Disk.objects.all()
-    serializer_class = serializers.DiskSerializer
+    queryset = Disk.objects.all()
+    serializer_class = DiskSerializer
+    filterset_class = DiskFilterSet
 
-# DiskSet ViewSet
 class DiskSetViewSet(NetBoxModelViewSet):
-    queryset = models.DiskSet.objects.all()
-    serializer_class = serializers.DiskSetSerializer
+    queryset = DiskSet.objects.all()
+    serializer_class = DiskSetSerializer
+    filterset_class = DiskSetFilterSet
 
-# LogicalDrive ViewSet
 class LogicalDriveViewSet(NetBoxModelViewSet):
-    queryset = models.LogicalDrive.objects.all()
-    serializer_class = serializers.LogicalDriveSerializer
+    queryset = LogicalDrive.objects.all()
+    serializer_class = LogicalDriveSerializer
+    filterset_class = LogicalDriveFilterSet
 
-# Filesystem ViewSet
 class FilesystemViewSet(NetBoxModelViewSet):
-    queryset = models.Filesystem.objects.all()
-    serializer_class = serializers.FilesystemSerializer
+    queryset = Filesystem.objects.all()
+    serializer_class = FilesystemSerializer
+    filterset_class = FilesystemFilterSet
 
-# Share ViewSet
 class ShareViewSet(NetBoxModelViewSet):
-    queryset = models.Share.objects.all()
-    serializer_class = serializers.ShareSerializer
+    queryset = Share.objects.all()
+    serializer_class = ShareSerializer
+    filterset_class = ShareFilterSet
 
-# SANVolume ViewSet
-class SANVolumeViewSet(NetBoxModelViewSet):
-    queryset = models.SANVolume.objects.all()
-    serializer_class = serializers.SANVolumeSerializer
-
-# ObjectStorage ViewSet
 class ObjectStorageViewSet(NetBoxModelViewSet):
-    queryset = models.ObjectStorage.objects.all()
-    serializer_class = serializers.ObjectStorageSerializer
+    queryset = ObjectStorage.objects.all()
+    serializer_class = ObjectStorageSerializer
+    filterset_class = ObjectStorageFilterSet
 
-# VMDisk ViewSet
-class VMDiskViewSet(NetBoxModelViewSet):
-    queryset = models.VMDisk.objects.all()
-    serializer_class = serializers.VMDiskSerializer
+class SanVolumeViewSet(NetBoxModelViewSet):
+    queryset = SANVolume.objects.all()
+    serializer_class = SANVolumeSerializer
+    filterset_class = SANVolumeFilterSet
+
+class VirtualDiskViewSet(NetBoxModelViewSet):
+    queryset = VMDisk.objects.all()
+    serializer_class = VMDiskSerializer
+    filterset_class = VMDiskFilterSet
