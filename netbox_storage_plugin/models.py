@@ -111,6 +111,8 @@ DISK_SPEED_CHOICES = [
 SHARE_PROTOCOL_CHOICES = [
     ('nfs3', 'NFS3'),
     ('nfs4', 'NFS4'),
+    ('cifs','CIFS'),
+    ('smb1', 'SMB1'),
     ('smb2', 'SMB2'),
     ('smb3', 'SMB3'),
 ]
