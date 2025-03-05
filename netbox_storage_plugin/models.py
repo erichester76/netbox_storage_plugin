@@ -154,7 +154,10 @@ class Disk(NetBoxModel):
         ordering = ['name']
         verbose_name = 'Disk'
         verbose_name_plural = 'Disks'
-        
+        permissions = [
+            ('netbox_storage_plugin.view_disk', 'Can view disks'),
+            ('netbox_storage_plugin.manage_disk', 'Can manage disks'),
+        ]
     def get_absolute_url(self):
         return reverse('plugins:netbox_storage_plugin:disk', kwargs={'pk': self.pk})
     
@@ -188,7 +191,7 @@ class DiskSet(NetBoxModel):
         ]
         
     def get_absolute_url(self):
-        return reverse('storage:diskset', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:diskset', kwargs={'pk': self.pk})
 
 class LogicalDrive(NetBoxModel):
     name = models.CharField(max_length=255, help_text="A human-readable name for the logical drive")
@@ -210,7 +213,7 @@ class LogicalDrive(NetBoxModel):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('storage:logicaldrive', kwargs={'pk': self.pk})
+        return reverse('plugins:netbox_storage_plugin:logicaldrive', kwargs={'pk': self.pk})
 
     class Meta:
         ordering = ['name']
