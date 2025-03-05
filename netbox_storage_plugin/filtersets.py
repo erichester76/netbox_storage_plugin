@@ -10,7 +10,7 @@ from .models import (
 
 # Existing FilterSets (unchanged)
 class DiskFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     size = NumberFilter(lookup_expr='exact')
     interface = ChoiceFilter(choices=INTERFACE_CHOICES)
@@ -20,26 +20,12 @@ class DiskFilterSet(NetBoxModelFilterSet):
     firmware_version = CharFilter(lookup_expr='icontains')
     wwn = CharFilter(lookup_expr='icontains')
 
-    # Filter by associated object (GenericForeignKey)
-    associated_object_type = CharFilter(method='filter_associated_object_type')
-    associated_object_id = NumberFilter(method='filter_associated_object_id')
-
-    def filter_associated_object_type(self, queryset, name, value):
-        try:
-            content_type = ContentType.objects.get(model=value.lower())
-            return queryset.filter(associated_object_type=content_type)
-        except ContentType.DoesNotExist:
-            return queryset.none()
-
-    def filter_associated_object_id(self, queryset, name, value):
-        return queryset.filter(associated_object_id=value)
-
     class Meta:
         model = Disk
-        fields = ['name', 'description', 'size', 'interface', 'speed', 'part_number', 'serial_number', 'firmware_version', 'wwn', 'associated_object_type', 'associated_object_id']
+        fields = ['name', 'description', 'size', 'interface', 'speed', 'part_number', 'serial_number', 'firmware_version', 'wwn']
 
 class DiskSetFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     type = ChoiceFilter(choices=DISKSET_TYPE_CHOICES)  
     raid_level = CharFilter(choices=RAID_LEVEL_CHOICES)
@@ -50,7 +36,7 @@ class DiskSetFilterSet(NetBoxModelFilterSet):
         fields = ['name', 'description', 'type', 'raid_level', 'disk_count']
 
 class LogicalDriveFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     type = ChoiceFilter(choices=LOGICAL_DRIVE_CHOICES)
     identifier = CharFilter(lookup_expr='icontains')
@@ -60,7 +46,7 @@ class LogicalDriveFilterSet(NetBoxModelFilterSet):
         fields = ['name', 'description', 'type', 'identifier']
 
 class FilesystemFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     fs_type = ChoiceFilter(choices=FS_TYPE_CHOICES)
     mount_point = CharFilter(lookup_expr='icontains')
@@ -71,7 +57,7 @@ class FilesystemFilterSet(NetBoxModelFilterSet):
 
 # New FilterSets for Share, SanVolume, and VirtualDisk
 class ShareFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     protocol = ChoiceFilter(choices=SHARE_PROTOCOL_CHOICES) 
     path = CharFilter(lookup_expr='icontains')
@@ -82,7 +68,7 @@ class ShareFilterSet(NetBoxModelFilterSet):
         fields = ['name', 'description', 'protocol', 'path', 'size']
 
 class SANVolumeFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     lun = NumberFilter(lookup_expr='exact')
     size = NumberFilter(lookup_expr='exact')
@@ -93,7 +79,7 @@ class SANVolumeFilterSet(NetBoxModelFilterSet):
         fields = ['name', 'description', 'lun', 'size', 'protocol']
 
 class ObjectStorageFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     provider = ChoiceFilter(choices=PROVIDER_CHOICES) 
     region = CharFilter(lookup_expr='icontains')
@@ -104,7 +90,7 @@ class ObjectStorageFilterSet(NetBoxModelFilterSet):
         fields = ['name', 'description', 'provider', 'region', 'bucket_name']
 
 class VMDiskFilterSet(NetBoxModelFilterSet):
-    name = CharFilter(lookup_expr='icontains')
+    name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     size = NumberFilter(lookup_expr='exact')
     provisioning = ChoiceFilter(choices=PROVISIONING_CHOICES) 
