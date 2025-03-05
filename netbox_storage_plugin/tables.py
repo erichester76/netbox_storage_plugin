@@ -94,7 +94,7 @@ class LogicalDriveTable(NetBoxTable):
 
     class Meta(NetBoxTable.Meta):
         model = LogicalDrive
-        fields = ('pk', 'name', 'size', 'type', 'identifier', 'description', 'parent', 'associated_object')
+        fields = ('pk', 'name', 'size', 'type', 'identifier', 'description', 'parent' 'associated_object')
         default_columns = ('associated_object', 'name', 'size', 'type', 'identifier', 'parent')
 
     def render_size(self, value):
@@ -147,7 +147,7 @@ class ShareTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = Share
         fields = ('pk', 'name', 'size', 'protocol', 'export_path', 'description', 'parent', 'associated_object')
-        default_columns = ('name', 'size', 'protocol', 'export_path', 'parent', 'associated_object')
+        default_columns = ('assoicated_object', 'name', 'size', 'protocol', 'export_path', 'parent')
 
     def render_size(self, value):
         return format_size(value)
@@ -174,7 +174,7 @@ class SANVolumeTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = SANVolume
         fields = ('pk', 'name', 'size', 'protocol', 'target', 'lun_id', 'description', 'parent', 'associated_object')
-        default_columns = ('name', 'size', 'protocol', 'target', 'lun_id', 'parent', 'associated_object')
+        default_columns = ('associated_object', 'name', 'size', 'protocol', 'target', 'lun_id', 'parent')
 
     def render_size(self, value):
         return format_size(value)
@@ -201,7 +201,7 @@ class ObjectStorageTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = ObjectStorage
         fields = ('pk', 'name', 'size', 'provider', 'region', 'bucket_name', 'description', 'parent', 'associated_object')
-        default_columns = ('name', 'size', 'provider', 'region', 'bucket_name', 'parent', 'associated_object')
+        default_columns = ('associated_object', 'name', 'size', 'provider', 'region', 'bucket_name', 'parent')
 
     def render_size(self, value):
         return format_size(value)
@@ -228,7 +228,7 @@ class VMDiskTable(NetBoxTable):
     class Meta(NetBoxTable.Meta):
         model = VMDisk
         fields = ('pk', 'name', 'size', 'format', 'provisioning', 'controller', 'path', 'description', 'parent', 'associated_object')
-        default_columns = ('name', 'size', 'format', 'provisioning', 'controller', 'parent', 'associated_object')
+        default_columns = ('associated_object', 'name', 'size', 'format', 'provisioning', 'controller', 'parent')
     
     def render_size(self, value):
         return format_size(value)
