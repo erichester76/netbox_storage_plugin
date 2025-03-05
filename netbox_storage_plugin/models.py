@@ -146,7 +146,9 @@ class Disk(NetBoxModel):
     associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
     associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('associated_object_type', 'associated_object_id')
-
+   
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
+    
     def __str__(self):
         return self.name
 
@@ -166,17 +168,20 @@ class DiskSet(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the disk set")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the disk set in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_diskset')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_diskset')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     type = models.CharField(max_length=50, choices=DISKSET_TYPE_CHOICES, help_text="The type of disk set (e.g., RAID)")
     raid_level = models.IntegerField(choices=RAID_LEVEL_CHOICES, null=True, blank=True, help_text="The RAID level (e.g., 0, 1, 5)")
     disk_count = models.IntegerField(help_text="Number of disks in the set")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
+
+
 
     def __str__(self):
         return self.name
@@ -198,16 +203,17 @@ class LogicalDrive(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the logical drive")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the logical drive in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_logicaldrive')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_logicaldrive')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     type = models.CharField(max_length=50, choices=LOGICAL_DRIVE_CHOICES, help_text="The type of logical drive")
     identifier = models.CharField(max_length=100, help_text="The identifier (e.g., sda1, vg_data/lv_home)")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name
@@ -229,16 +235,17 @@ class Filesystem(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the filesystem")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the filesystem in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_filesystem')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_filesystem')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     fs_type = models.CharField(max_length=50, choices=FS_TYPE_CHOICES, help_text="The type of filesystem (e.g., ext4, xfs, zfs)")
     mount_point = models.CharField(max_length=255, help_text="The mount point (e.g., /mnt/data)")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name
@@ -260,16 +267,17 @@ class Share(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the share")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the share in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_share')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_share')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     protocol = models.CharField(max_length=50, choices=SHARE_PROTOCOL_CHOICES, help_text="The sharing protocol")
     export_path = models.CharField(max_length=255, help_text="The path where the share is exported (e.g., /mnt/share)")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name
@@ -291,17 +299,18 @@ class SANVolume(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the SAN volume")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the SAN volume in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_sanvolume')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_sanvolume')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     protocol = models.CharField(max_length=50, choices=SAN_PROTOCOL_CHOICES, help_text="The SAN protocol")
     target = models.CharField(max_length=255, help_text="The target identifier (e.g., IQN for iSCSI)")
     lun_id = models.IntegerField(help_text="The LUN identifier")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name
@@ -323,17 +332,18 @@ class ObjectStorage(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the object storage")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the object storage in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_objectstorage')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_objectstorage')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
 
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
 
     provider = models.CharField(max_length=100, choices=PROVIDER_CHOICES, help_text="The cloud provider (e.g., AWS, Azure, Google Cloud)")
     region = models.CharField(max_length=100, help_text="The storage region (e.g., us-east-1)")
     bucket_name = models.CharField(max_length=255, help_text="The name of the bucket")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name
@@ -355,16 +365,17 @@ class VMDisk(NetBoxModel):
     description = models.TextField(blank=True, help_text="Additional notes or context about the virtual disk")
     size = models.PositiveBigIntegerField(null=True, blank=True, help_text="The size of the virtual disk in bytes")
 
-    parent_content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_VMDisk')
+    parent_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True, related_name='parent_VMDisk')
     parent_object_id = models.PositiveIntegerField(null=True, blank=True)
-    parent = GenericForeignKey('parent_content_type', 'parent_object_id')
-    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
-    object_id = models.PositiveIntegerField(null=True, blank=True)
+    parent = GenericForeignKey('parent_object_type', 'parent_object_id')
+    associated_object_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    associated_object_id = models.PositiveIntegerField(null=True, blank=True)
     associated_object = GenericForeignKey('content_type', 'object_id')
     format = models.CharField(max_length=50, choices=FORMAT_CHOICES, help_text="The file format of the virtual disk (e.g., VMDK, QCOW2)")
     provisioning = models.CharField(max_length=50, choices=PROVISIONING_CHOICES, help_text="The provisioning type (e.g., thin, thick)")
     controller = models.CharField(max_length=50, choices=CONTROLLER_CHOICES, help_text="The type of controller the disk is attached to (e.g., IDE, SCSI)")
     path = models.CharField(max_length=255, help_text="The path to the virtual disk file")
+    state = models.CharField(max_length=50, help_text="The state of the disk (e.g., online, offline, failed)")
 
     def __str__(self):
         return self.name

@@ -20,7 +20,7 @@ class DiskFilterSet(NetBoxModelFilterSet):
     firmware_version = CharFilter(lookup_expr='icontains')
     wwn = CharFilter(lookup_expr='icontains')
     associated_object_id = NumberFilter(lookup_expr='exact')
-
+    
     class Meta:
         model = Disk
         fields = ['name', 'description', 'size', 'interface', 'speed', 'part_number', 'serial_number', 'firmware_version', 'wwn', 'associated_object_id']
