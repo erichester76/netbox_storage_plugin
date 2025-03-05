@@ -41,24 +41,24 @@ class LogicalDriveFilterSet(NetBoxModelFilterSet):
     description = CharFilter(lookup_expr='icontains')
     type = ChoiceFilter(choices=LOGICAL_DRIVE_CHOICES)
     identifier = CharFilter(lookup_expr='icontains')
-    object_id = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = LogicalDrive
-        fields = ['name', 'description', 'type', 'identifier', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'type', 'identifier', 'associated_object_id', 'parent_object_id']
 
 class FilesystemFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     fs_type = ChoiceFilter(choices=FS_TYPE_CHOICES)
     mount_point = CharFilter(lookup_expr='icontains')
-    object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
-    
+    associated_object_id = NumberFilter(lookup_expr='exact')
+
     class Meta:
         model = Filesystem
-        fields = ['name', 'description', 'fs_type', 'mount_point', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'fs_type', 'mount_point', 'associated_object_id', 'parent_object_id']
 
 # New FilterSets for Share, SanVolume, and VirtualDisk
 class ShareFilterSet(NetBoxModelFilterSet):
@@ -67,12 +67,12 @@ class ShareFilterSet(NetBoxModelFilterSet):
     protocol = ChoiceFilter(choices=SHARE_PROTOCOL_CHOICES) 
     path = CharFilter(lookup_expr='icontains')
     size = NumberFilter(lookup_expr='exact')
-    object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = Share
-        fields = ['name', 'description', 'protocol', 'path', 'size', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'protocol', 'path', 'size', 'associated_object_id', 'parent_object_id']
 
 class SANVolumeFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -81,12 +81,12 @@ class SANVolumeFilterSet(NetBoxModelFilterSet):
     target = CharFilter(lookup_expr='exact')
     size = NumberFilter(lookup_expr='exact')
     protocol = ChoiceFilter(choices=SAN_PROTOCOL_CHOICES)  
-    object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = SANVolume
-        fields = ['name', 'description', 'lun_id', 'target', 'size', 'protocol', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'lun_id', 'target', 'size', 'protocol', 'associated_object_id', 'parent_object_id']
 
 class ObjectStorageFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -94,12 +94,12 @@ class ObjectStorageFilterSet(NetBoxModelFilterSet):
     provider = ChoiceFilter(choices=PROVIDER_CHOICES) 
     region = CharFilter(lookup_expr='icontains')
     bucket_name = CharFilter(lookup_expr='icontains')
-    object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = ObjectStorage
-        fields = ['name', 'description', 'provider', 'region', 'bucket_name', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'provider', 'region', 'bucket_name', 'associated_object_id', 'parent_object_id']
 
 class VMDiskFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -108,9 +108,9 @@ class VMDiskFilterSet(NetBoxModelFilterSet):
     provisioning = ChoiceFilter(choices=PROVISIONING_CHOICES) 
     controller = ChoiceFilter(Choices=CONTROLLER_CHOICES)
     format = ChoiceFilter(choices=FORMAT_CHOICES)
-    object_id = NumberFilter(lookup_expr='exact')
     parent_object_id = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = VMDisk
-        fields = ['name', 'description', 'size', 'provisioning', 'controller', 'format', 'object_id', 'parent_object_id']
+        fields = ['name', 'description', 'size', 'provisioning', 'controller', 'format', 'associated_object_id', 'parent_object_id']
