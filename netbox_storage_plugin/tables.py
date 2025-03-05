@@ -63,11 +63,11 @@ class DiskTable(NetBoxTable):
     def render_size(self, value):
         return format_size(value)
 
-    def render_associated_object(self, value, record):
-        """
-        Render the associated object column, resolving the GenericForeignKey.
-        """
-        return get_associated_object_display(record)
+    # def render_associated_object(self, value, record):
+    #     """
+    #     Render the associated object column, resolving the GenericForeignKey.
+    #     """
+    #     return get_associated_object_display(record)
 
 class DiskSetTable(NetBoxTable):
     name = tables.Column(linkify=True)
