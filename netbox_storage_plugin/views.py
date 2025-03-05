@@ -1,5 +1,5 @@
 from netbox.views import generic
-from . import models, forms, tables
+from . import models, forms, tables, filtersets
 from django.contrib.contenttypes.models import ContentType
 from utilities.views import register_model_view, ViewTab
 from dcim.models import Device
@@ -8,34 +8,43 @@ from dcim.models import Device
 class DiskListView(generic.ObjectListView):
     queryset = models.Disk.objects.all()
     table = tables.DiskTable
+    filterset = filtersets.DiskFilterSet
 
 class DiskSetListView(generic.ObjectListView):
     queryset = models.DiskSet.objects.all()
     table = tables.DiskSetTable
+    filterset = filtersets.DiskSetFilterSet
 
 class LogicalDriveListView(generic.ObjectListView):
     queryset = models.LogicalDrive.objects.all()
     table = tables.LogicalDriveTable
+    filterset = filtersets.LogicalDriveFilterSet
 
 class FilesystemListView(generic.ObjectListView):
     queryset = models.Filesystem.objects.all()
     table = tables.FilesystemTable
+    filterset = filtersets.FilesystemFilterSet
 
 class ShareListView(generic.ObjectListView):
     queryset = models.Share.objects.all()
     table = tables.ShareTable
+    filterset = filtersets.ShareFilterSet
 
 class SANVolumeListView(generic.ObjectListView):
     queryset = models.SANVolume.objects.all()
     table = tables.SANVolumeTable
+    filterset = filtersets.SANVolumeFilterSet
 
 class ObjectStorageListView(generic.ObjectListView):
     queryset = models.ObjectStorage.objects.all()
     table = tables.ObjectStorageTable
+    filterset = filtersets.ObjectStorageFilterSet
 
 class VMDiskListView(generic.ObjectListView):
     queryset = models.VMDisk.objects.all()
     table = tables.VMDiskTable
+    filterset = filtersets.VMDiskFilterSet
+
 
 class DiskEditView(generic.ObjectEditView):
     queryset = models.Disk.objects.all()

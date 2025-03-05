@@ -24,6 +24,17 @@ class DiskFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = Disk
         fields = ['name', 'description', 'size', 'interface', 'speed', 'part_number', 'serial_number', 'firmware_version', 'wwn', 'associated_object_id']
+    
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(part_number__icontains=value) |
+            Q(serial_number__icontains=value) |
+            Q(firmware_version__icontains=value) |
+            Q(speed=value) |
+            Q(interface=value) 
+        )
 
 class DiskSetFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -35,6 +46,15 @@ class DiskSetFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = DiskSet
         fields = ['name', 'description', 'type', 'raid_level', 'disk_count']
+
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(type=value) |
+            Q(raid_level=value)
+        )
+
 
 class LogicalDriveFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -48,6 +68,14 @@ class LogicalDriveFilterSet(NetBoxModelFilterSet):
         model = LogicalDrive
         fields = ['name', 'description', 'type', 'identifier', 'associated_object_id', 'parent_object_id']
 
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(type=value) |
+            Q(identifier__icontains=value)
+        )
+
 class FilesystemFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
@@ -59,6 +87,14 @@ class FilesystemFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = Filesystem
         fields = ['name', 'description', 'fs_type', 'mount_point', 'associated_object_id', 'parent_object_id']
+
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(fs_type=value) |
+            Q(mount_point__icontains=value)
+        )
 
 # New FilterSets for Share, SanVolume, and VirtualDisk
 class ShareFilterSet(NetBoxModelFilterSet):
@@ -74,6 +110,15 @@ class ShareFilterSet(NetBoxModelFilterSet):
         model = Share
         fields = ['name', 'description', 'protocol', 'path', 'size', 'associated_object_id', 'parent_object_id']
 
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(protocol=value) | 
+            Q(path__icontains=value)
+        )
+        
+
 class SANVolumeFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
@@ -87,6 +132,16 @@ class SANVolumeFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = SANVolume
         fields = ['name', 'description', 'lun_id', 'target', 'size', 'protocol', 'associated_object_id', 'parent_object_id']
+        
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(lun_id=value) |
+            Q(target__icontains=value) |
+            Q(size=value) |
+            Q(protocol=value)
+        )
 
 class ObjectStorageFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
@@ -101,6 +156,15 @@ class ObjectStorageFilterSet(NetBoxModelFilterSet):
         model = ObjectStorage
         fields = ['name', 'description', 'provider', 'region', 'bucket_name', 'associated_object_id', 'parent_object_id']
 
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(provider=value) |
+            Q(region__icontains=value) |
+            Q(bucket_name__icontains=value)
+        )
+
 class VMDiskFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
@@ -114,3 +178,14 @@ class VMDiskFilterSet(NetBoxModelFilterSet):
     class Meta:
         model = VMDisk
         fields = ['name', 'description', 'size', 'provisioning', 'controller', 'format', 'associated_object_id', 'parent_object_id']
+        
+        
+    def search(self, queryset, name, value):
+        return queryset.filter(
+            Q(name__icontains=value) |
+            Q(description__icontains=value) |
+            Q(size=value) |
+            Q(provisioning=value) |
+            Q(controller=value) |
+            Q(format=value)
+        )
