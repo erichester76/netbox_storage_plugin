@@ -47,7 +47,7 @@ class ShareIndex(SearchIndex):
     fields = (
         ('name', 100),
         ('description', 50),
-        ('share_type', 50),
+        ('protocol', 50),
         ('state', 50),
     )
 
@@ -68,7 +68,7 @@ class SANVolumeIndex(SearchIndex):
     fields = (
         ('name', 100),
         ('description', 50),
-        ('storage_protocol', 50),
+        ('protocol', 50),
         ('state', 50),
     )
 
@@ -80,6 +80,7 @@ class ObjectStorageIndex(SearchIndex):
         ('name', 100),
         ('description', 50),
         ('bucket_name', 50),
+        ('provider', 50),
         ('state', 50),
     )
 
