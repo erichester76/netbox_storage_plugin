@@ -1,6 +1,5 @@
 # storage/filters.py
-from django_filters import FilterSet, CharFilter, NumberFilter, ChoiceFilter, BooleanFilter
-from django.contrib.contenttypes.models import ContentType
+from django_filters import CharFilter, NumberFilter, ChoiceFilter, BooleanFilter
 from netbox.filtersets import NetBoxModelFilterSet
 from .models import ( 
     Disk, DiskSet, LogicalDrive, Filesystem, Share, SANVolume, ObjectStorage, VMDisk,
