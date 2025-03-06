@@ -92,11 +92,11 @@ class DiskImportView(generic.BulkImportView):
 
 class DiskBulkEditView(generic.BulkEditView):
     queryset = models.Disk.objects.all()
-    table_class =tables.DiskTable
+    table = tables.DiskTable
 
 class DiskBulkDeleteView(generic.BulkDeleteView):
     queryset = models.Disk.objects.all()
-    table_class =tables.DiskTable
+    table = tables.DiskTable
 
 class DiskChangeLogView(generic.ObjectChangeLogView):
     queryset = models.Disk.objects.all()
@@ -115,11 +115,11 @@ class DiskSetImportView(generic.BulkImportView):
     
 class DiskSetBulkEditView(generic.BulkEditView):
     queryset = models.DiskSet.objects.all()
-    table_class =tables.DiskSetTable
+    table = tables.DiskSetTable
 
 class DiskSetBulkDeleteView(generic.BulkDeleteView):
     queryset = models.DiskSet.objects.all()
-    table_class =tables.DiskSetTable
+    table = tables.DiskSetTable
 
 class DiskSetChangeLogView(generic.ObjectChangeLogView):
     queryset = models.DiskSet.objects.all()
@@ -138,11 +138,11 @@ class LogicalDriveImportView(generic.BulkImportView):
     
 class LogicalDriveBulkEditView(generic.BulkEditView):
     queryset = models.LogicalDrive.objects.all()
-    table_class =tables.LogicalDriveTable
+    table = tables.LogicalDriveTable
 
 class LogicalDriveBulkDeleteView(generic.BulkDeleteView):
     queryset = models.LogicalDrive.objects.all()
-    table_class =tables.LogicalDriveTable
+    table = tables.LogicalDriveTable
 
 class LogicalDriveChangeLogView(generic.ObjectChangeLogView):
     queryset = models.LogicalDrive.objects.all()
@@ -161,11 +161,11 @@ class FilesystemImportView(generic.BulkImportView):
     
 class FilesystemBulkEditView(generic.BulkEditView):
     queryset = models.Filesystem.objects.all()
-    table_class =tables.FilesystemTable
+    table = tables.FilesystemTable
 
 class FilesystemBulkDeleteView(generic.BulkDeleteView):
     queryset = models.Filesystem.objects.all()
-    table_class =tables.FilesystemTable
+    table = tables.FilesystemTable
 
 class FilesystemChangeLogView(generic.ObjectChangeLogView):
     queryset = models.Filesystem.objects.all()
@@ -184,11 +184,11 @@ class ShareImportView(generic.BulkImportView):
     
 class ShareBulkEditView(generic.BulkEditView):
     queryset = models.Share.objects.all()
-    table_class =tables.ShareTable
+    table = tables.ShareTable
 
 class ShareBulkDeleteView(generic.BulkDeleteView):
     queryset = models.Share.objects.all()
-    table_class =tables.ShareTable
+    table = tables.ShareTable
 
 class ShareChangeLogView(generic.ObjectChangeLogView):
     queryset = models.Share.objects.all()
@@ -207,11 +207,11 @@ class SANVolumeImportView(generic.BulkImportView):
 
 class SANVolumeBulkEditView(generic.BulkEditView):
     queryset = models.SANVolume.objects.all()
-    table_class =tables.SANVolumeTable
+    table = tables.SANVolumeTable
 
 class SANVolumeBulkDeleteView(generic.BulkDeleteView):
     queryset = models.SANVolume.objects.all()
-    table_class =tables.SANVolumeTable
+    table = tables.SANVolumeTable
 
 class SANVolumeChangeLogView(generic.ObjectChangeLogView):
     queryset = models.SANVolume.objects.all()
@@ -230,11 +230,11 @@ class ObjectStorageImportView(generic.BulkImportView):
     
 class ObjectStorageBulkEditView(generic.BulkEditView):
     queryset = models.ObjectStorage.objects.all()
-    table_class =tables.ObjectStorageTable
+    table = tables.ObjectStorageTable
 
 class ObjectStorageBulkDeleteView(generic.BulkDeleteView):
     queryset = models.ObjectStorage.objects.all()
-    table_class =tables.ObjectStorageTable
+    table = tables.ObjectStorageTable
 
 class ObjectStorageChangeLogView(generic.ObjectChangeLogView):
     queryset = models.ObjectStorage.objects.all()
@@ -253,11 +253,11 @@ class VMDiskImportView(generic.BulkImportView):
     
 class VMDiskBulkEditView(generic.BulkEditView):
     queryset = models.VMDisk.objects.all()
-    table_class =tables.VMDiskTable
+    table = tables.VMDiskTable
 
 class VMDiskBulkDeleteView(generic.BulkDeleteView):
     queryset = models.VMDisk.objects.all()
-    table_class =tables.VMDiskTable
+    table = tables.VMDiskTable
 
 class VMDiskChangeLogView(generic.ObjectChangeLogView):
     queryset = models.VMDisk.objects.all()
