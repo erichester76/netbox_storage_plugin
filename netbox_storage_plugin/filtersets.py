@@ -40,8 +40,10 @@ class DiskSetFilterSet(NetBoxModelFilterSet):
     name = CharFilter(lookup_expr='exact')
     description = CharFilter(lookup_expr='icontains')
     type = ChoiceFilter(choices=DISKSET_TYPE_CHOICES)  
-    raid_level = CharFilter(choices=RAID_LEVEL_CHOICES)
+    raid_level = ChoiceFilter(choices=RAID_LEVEL_CHOICES)
     disk_count = NumberFilter(lookup_expr='exact')
+    associated_object_id = NumberFilter(lookup_expr='exact')
+    parent_object_id = NumberFilter(lookup_expr='exact')
 
     class Meta:
         model = DiskSet
