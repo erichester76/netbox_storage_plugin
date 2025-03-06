@@ -8,6 +8,7 @@ class DiskListView(generic.ObjectListView):
     queryset = models.Disk.objects.all()
     table = tables.DiskTable
     filterset = filtersets.DiskFilterSet
+    filterset_form = forms.DiskFilterForm
 
 class DiskSetListView(generic.ObjectListView):
     queryset = models.DiskSet.objects.all()

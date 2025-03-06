@@ -1,7 +1,7 @@
 from . import models
 from django.contrib.contenttypes.models import ContentType
 from utilities.forms.fields import ContentTypeChoiceField
-from netbox.forms import NetBoxModelForm, NetBoxModelImportForm
+from netbox.forms import NetBoxModelForm, NetBoxModelImportForm, NetboxFilterSetForm
 from django import forms
 from django.db.models import Q
 
@@ -51,6 +51,9 @@ class DiskImportForm(NetBoxModelImportForm):
             Q(app_label='virtualization', model='virtualmachine') |
             Q(app_label='virtualization', model='virtualdisk')
         )
+
+class DiskFilterForm(NetBoxModelFilterSetForm):
+    model = models.Disk
 
 class DiskSetForm(NetBoxModelForm):
     class Meta:
