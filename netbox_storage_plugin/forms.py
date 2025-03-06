@@ -1,7 +1,7 @@
 from . import models
 from django.contrib.contenttypes.models import ContentType
 from utilities.forms.fields import ContentTypeChoiceField
-from netbox.forms import NetBoxModelForm, NetBoxModelImportForm, NetboxFilterSetForm
+from netbox.forms import NetBoxModelForm, NetBoxModelImportForm, NetBoxModelFilterSetForm
 from django import forms
 from django.db.models import Q
 
